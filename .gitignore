@@ -1,0 +1,46 @@
+# ── Raw data (do NOT commit images or the original zip) ──────────────────────
+dataset/
+archive.zip
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Model artifacts / checkpoints (usually large) ────────────────────────────
+models/
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.joblib
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ── Secrets / credentials ─────────────────────────────────────────────────────
+.env
+*.env
+secrets.yaml
