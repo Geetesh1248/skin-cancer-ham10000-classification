@@ -2,6 +2,12 @@
 dataset/
 archive.zip
 
+# ── Results: large binary feature arrays stay out of git ─────────────────────
+# .npz files can be 100s of MB - exclude them
+results/*.npz
+# label_mapping.json is small and MUST be committed for reproducibility
+# (it is NOT excluded - git tracks it by default since only *.npz is ignored)
+
 # ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
