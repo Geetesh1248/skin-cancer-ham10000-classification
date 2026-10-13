@@ -51,9 +51,9 @@ for i, cls in enumerate(class_names):
     n = (y_train == i).sum()
     print(f"  {cls:6s}  {n:5d} samples")
 
-# ── Model ─────────────────────────────────────────────────────────────────────
+# -- Model ---------------------------------------------------------------------
 model = LGBMClassifier(
-    n_estimators=300,
+    n_estimators=500,
     learning_rate=0.1,
     num_leaves=31,
     objective="multiclass",
@@ -64,15 +64,17 @@ model = LGBMClassifier(
     verbose=-1,
 )
 
-print("\nTraining LightGBM (300 trees, num_leaves=31, lr=0.1)...")
+print("\nTraining LightGBM (500 trees max, num_leaves=31, lr=0.1, early_stopping_rounds=30)...")
 print("-" * 60)
 model.fit(
     X_train, y_train,
     eval_set=[(X_val, y_val)],
     eval_metric="multi_logloss",
-    callbacks=[log_evaluation(period=50)],
+    callbacks=[log_evaluation(period=50), early_stopping(stopping_rounds=30)],
 )
 print("-" * 60)
+if hasattr(model, "best_iteration_"):
+    print(f"Best iteration: {model.best_iteration_}")
 
 # ── Evaluate on TEST set ──────────────────────────────────────────────────────
 y_pred = model.predict(X_test)

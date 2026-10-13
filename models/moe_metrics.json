@@ -1,0 +1,198 @@
+{
+  "comparison": [
+    {
+      "model": "XGBoost",
+      "accuracy": 0.7609,
+      "macro_f1": 0.5044,
+      "weighted_f1": 0.7478,
+      "mel_recall": 0.4821
+    },
+    {
+      "model": "CatBoost",
+      "accuracy": 0.672,
+      "macro_f1": 0.4635,
+      "weighted_f1": 0.6948,
+      "mel_recall": 0.5893
+    },
+    {
+      "model": "LightGBM",
+      "accuracy": 0.7448,
+      "macro_f1": 0.4852,
+      "weighted_f1": 0.7406,
+      "mel_recall": 0.4702
+    },
+    {
+      "model": "Simple Average",
+      "accuracy": 0.7502,
+      "macro_f1": 0.5129,
+      "weighted_f1": 0.7466,
+      "mel_recall": 0.5595
+    },
+    {
+      "model": "MoE (Gated)",
+      "accuracy": 0.672,
+      "macro_f1": 0.4635,
+      "weighted_f1": 0.6948,
+      "mel_recall": 0.5893
+    }
+  ],
+  "moe_detailed": {
+    "accuracy": 0.672,
+    "macro_f1": 0.4635,
+    "weighted_f1": 0.6948,
+    "mel_recall": 0.5893,
+    "per_class": {
+      "akiec": {
+        "precision": 0.3023,
+        "recall": 0.5098,
+        "f1": 0.3796,
+        "support": 51
+      },
+      "bcc": {
+        "precision": 0.4112,
+        "recall": 0.5714,
+        "f1": 0.4783,
+        "support": 77
+      },
+      "bkl": {
+        "precision": 0.4044,
+        "recall": 0.4713,
+        "f1": 0.4353,
+        "support": 157
+      },
+      "df": {
+        "precision": 0.375,
+        "recall": 0.1364,
+        "f1": 0.2,
+        "support": 22
+      },
+      "mel": {
+        "precision": 0.3613,
+        "recall": 0.5893,
+        "f1": 0.448,
+        "support": 168
+      },
+      "nv": {
+        "precision": 0.919,
+        "recall": 0.749,
+        "f1": 0.8253,
+        "support": 1000
+      },
+      "vasc": {
+        "precision": 0.4583,
+        "recall": 0.5,
+        "f1": 0.4783,
+        "support": 22
+      }
+    },
+    "confusion_matrix": [
+      [
+        26,
+        6,
+        12,
+        0,
+        4,
+        3,
+        0
+      ],
+      [
+        15,
+        44,
+        7,
+        2,
+        6,
+        3,
+        0
+      ],
+      [
+        15,
+        10,
+        74,
+        0,
+        27,
+        28,
+        3
+      ],
+      [
+        7,
+        4,
+        6,
+        3,
+        1,
+        1,
+        0
+      ],
+      [
+        12,
+        12,
+        18,
+        0,
+        99,
+        27,
+        0
+      ],
+      [
+        11,
+        27,
+        66,
+        3,
+        134,
+        749,
+        10
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        3,
+        4,
+        11
+      ]
+    ],
+    "mean_gate_weights": {
+      "all_test": [
+        0.0001,
+        0.9999,
+        0.0001
+      ],
+      "by_class": {
+        "akiec": [
+          0.0001,
+          0.9998,
+          0.0001
+        ],
+        "bcc": [
+          0.0,
+          0.9999,
+          0.0
+        ],
+        "bkl": [
+          0.0,
+          0.9999,
+          0.0001
+        ],
+        "df": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "mel": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "nv": [
+          0.0001,
+          0.9999,
+          0.0001
+        ],
+        "vasc": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    }
+  }
+}

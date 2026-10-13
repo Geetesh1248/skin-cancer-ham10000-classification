@@ -31,13 +31,21 @@ env/
 *.ipynb_checkpoints
 
 # ── Model artifacts / checkpoints (usually large) ────────────────────────────
-models/
+# Exclude large binary model files, keep metrics JSONs
+models/*.cbm
+models/*.txt
+models/xgboost_resnet50.json
+models/catboost_resnet50.cbm
+models/lightgbm_resnet50.txt
+# metrics JSONs are small and MUST be committed
+# (models/*_metrics.json is NOT excluded)
 *.h5
 *.pt
 *.pth
 *.ckpt
 *.pkl
 *.joblib
+catboost_info/
 
 # ── OS / editor ───────────────────────────────────────────────────────────────
 .DS_Store

@@ -53,20 +53,21 @@ for i, cls in enumerate(class_names):
     n = (y_train == i).sum()
     print(f"  {cls:6s}  {n:5d} samples  weight={sample_weights[y_train==i][0]:.4f}")
 
-# ── Model ─────────────────────────────────────────────────────────────────────
+# -- Model ---------------------------------------------------------------------
 model = XGBClassifier(
     objective="multi:softprob",
     num_class=7,
     eval_metric="mlogloss",
-    n_estimators=300,
+    n_estimators=500,
     max_depth=6,
     learning_rate=0.1,
     random_state=42,
     n_jobs=-1,
     tree_method="hist",
+    early_stopping_rounds=30,
 )
 
-print("\nTraining XGBoost (300 trees, max_depth=6, lr=0.1)...")
+print("\nTraining XGBoost (500 trees max, early_stopping_rounds=30, lr=0.1)...")
 print("-" * 60)
 model.fit(
     X_train, y_train,
@@ -75,6 +76,8 @@ model.fit(
     verbose=10,
 )
 print("-" * 60)
+if hasattr(model, "best_iteration"):
+    print(f"Best iteration: {model.best_iteration}")
 
 # ── Evaluate on TEST set ──────────────────────────────────────────────────────
 y_pred = model.predict(X_test)
@@ -87,7 +90,7 @@ cm         = confusion_matrix(y_test, y_pred)
 mel_recall = report["mel"]["recall"]
 
 print("\n" + "=" * 60)
-print("TEST SET RESULTS  —  XGBoost")
+print("TEST SET RESULTS  --  XGBoost")
 print("=" * 60)
 print(f"  Accuracy        : {acc:.4f}")
 print(f"  Macro F1        : {macro_f1:.4f}")

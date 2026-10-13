@@ -60,26 +60,29 @@ for i, cls in enumerate(class_names):
 # CatBoost expects class_weights as a list indexed by class label
 cw_list = [class_weights[i] for i in range(n_classes)]
 
-# ── Model ─────────────────────────────────────────────────────────────────────
+# -- Model ---------------------------------------------------------------------
 model = CatBoostClassifier(
-    iterations=300,
+    iterations=500,
     depth=6,
     learning_rate=0.1,
     loss_function="MultiClass",
+    eval_metric="MultiClass",
     random_seed=42,
     verbose=50,
     class_weights=cw_list,
     use_best_model=True,
-    eval_metric="Accuracy",
+    early_stopping_rounds=30,
 )
 
-print("\nTraining CatBoost (300 iters, depth=6, lr=0.1)...")
+print("\nTraining CatBoost (500 iters max, depth=6, lr=0.1, early_stopping_rounds=30)...")
 print("-" * 60)
 model.fit(
     X_train, y_train,
     eval_set=(X_val, y_val),
 )
 print("-" * 60)
+if hasattr(model, "get_best_iteration"):
+    print(f"Best iteration: {model.get_best_iteration()}")
 
 # ── Evaluate on TEST set ──────────────────────────────────────────────────────
 y_pred = model.predict(X_test).flatten()
