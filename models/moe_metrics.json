@@ -1,198 +1,208 @@
 {
-  "comparison": [
+  "leaderboard": [
     {
       "model": "XGBoost",
-      "accuracy": 0.7609,
-      "macro_f1": 0.5044,
-      "weighted_f1": 0.7478,
-      "mel_recall": 0.4821
-    },
-    {
-      "model": "CatBoost",
-      "accuracy": 0.672,
-      "macro_f1": 0.4635,
-      "weighted_f1": 0.6948,
-      "mel_recall": 0.5893
+      "accuracy": 0.767535,
+      "macro_f1": 0.50781,
+      "weighted_f1": 0.750747,
+      "mel_recall": 0.440476
     },
     {
       "model": "LightGBM",
-      "accuracy": 0.7448,
-      "macro_f1": 0.4852,
-      "weighted_f1": 0.7406,
-      "mel_recall": 0.4702
+      "accuracy": 0.741483,
+      "macro_f1": 0.484512,
+      "weighted_f1": 0.738589,
+      "mel_recall": 0.494048
     },
     {
-      "model": "Simple Average",
-      "accuracy": 0.7502,
-      "macro_f1": 0.5129,
-      "weighted_f1": 0.7466,
-      "mel_recall": 0.5595
+      "model": "CatBoost",
+      "accuracy": 0.759519,
+      "macro_f1": 0.533715,
+      "weighted_f1": 0.751841,
+      "mel_recall": 0.470238
     },
     {
-      "model": "MoE (Gated)",
-      "accuracy": 0.672,
-      "macro_f1": 0.4635,
-      "weighted_f1": 0.6948,
-      "mel_recall": 0.5893
+      "model": "Tuned Soft-Voting",
+      "accuracy": 0.760187,
+      "macro_f1": 0.526905,
+      "weighted_f1": 0.752847,
+      "mel_recall": 0.482143
+    },
+    {
+      "model": "MoE (88-D Gate)",
+      "accuracy": 0.764863,
+      "macro_f1": 0.520427,
+      "weighted_f1": 0.752822,
+      "mel_recall": 0.446429
     }
   ],
-  "moe_detailed": {
-    "accuracy": 0.672,
-    "macro_f1": 0.4635,
-    "weighted_f1": 0.6948,
-    "mel_recall": 0.5893,
+  "tuned_soft_voting": {
+    "weights": {
+      "xgboost": 0.0,
+      "catboost": 0.7,
+      "lightgbm": 0.3
+    },
+    "accuracy": 0.760187,
+    "macro_f1": 0.526905,
+    "weighted_f1": 0.752847,
+    "mel_recall": 0.482143
+  },
+  "moe_gating": {
+    "best_epoch": 34,
+    "mean_gate_weights": {
+      "xgboost": 0.5906,
+      "catboost": 0.131,
+      "lightgbm": 0.2785,
+      "by_class": {
+        "akiec": [
+          0.3944,
+          0.3227,
+          0.2828
+        ],
+        "bcc": [
+          0.2683,
+          0.3941,
+          0.3376
+        ],
+        "bkl": [
+          0.5088,
+          0.198,
+          0.2932
+        ],
+        "df": [
+          0.2926,
+          0.4389,
+          0.2685
+        ],
+        "mel": [
+          0.5183,
+          0.1353,
+          0.3464
+        ],
+        "nv": [
+          0.6625,
+          0.0787,
+          0.2588
+        ],
+        "vasc": [
+          0.3379,
+          0.3207,
+          0.3414
+        ]
+      }
+    },
+    "accuracy": 0.764863,
+    "macro_f1": 0.520427,
+    "weighted_f1": 0.752822,
+    "mel_recall": 0.446429,
     "per_class": {
       "akiec": {
-        "precision": 0.3023,
-        "recall": 0.5098,
-        "f1": 0.3796,
+        "precision": 0.45,
+        "recall": 0.5294,
+        "f1": 0.4865,
         "support": 51
       },
       "bcc": {
-        "precision": 0.4112,
-        "recall": 0.5714,
-        "f1": 0.4783,
+        "precision": 0.569,
+        "recall": 0.4286,
+        "f1": 0.4889,
         "support": 77
       },
       "bkl": {
-        "precision": 0.4044,
+        "precision": 0.4966,
         "recall": 0.4713,
-        "f1": 0.4353,
+        "f1": 0.4837,
         "support": 157
       },
       "df": {
-        "precision": 0.375,
+        "precision": 1.0,
         "recall": 0.1364,
-        "f1": 0.2,
+        "f1": 0.24,
         "support": 22
       },
       "mel": {
-        "precision": 0.3613,
-        "recall": 0.5893,
-        "f1": 0.448,
+        "precision": 0.5515,
+        "recall": 0.4464,
+        "f1": 0.4934,
         "support": 168
       },
       "nv": {
-        "precision": 0.919,
-        "recall": 0.749,
-        "f1": 0.8253,
+        "precision": 0.8548,
+        "recall": 0.924,
+        "f1": 0.888,
         "support": 1000
       },
       "vasc": {
-        "precision": 0.4583,
-        "recall": 0.5,
-        "f1": 0.4783,
+        "precision": 0.9,
+        "recall": 0.4091,
+        "f1": 0.5625,
         "support": 22
       }
     },
     "confusion_matrix": [
       [
-        26,
-        6,
-        12,
+        27,
+        3,
+        11,
         0,
         4,
-        3,
-        0
-      ],
-      [
-        15,
-        44,
-        7,
-        2,
         6,
-        3,
-        0
-      ],
-      [
-        15,
-        10,
-        74,
-        0,
-        27,
-        28,
-        3
-      ],
-      [
-        7,
-        4,
-        6,
-        3,
-        1,
-        1,
-        0
-      ],
-      [
-        12,
-        12,
-        18,
-        0,
-        99,
-        27,
         0
       ],
       [
         11,
-        27,
-        66,
+        33,
+        12,
+        0,
+        7,
+        14,
+        0
+      ],
+      [
+        8,
+        7,
+        74,
+        0,
+        17,
+        51,
+        0
+      ],
+      [
+        4,
+        1,
+        5,
         3,
-        134,
-        749,
-        10
+        0,
+        9,
+        0
+      ],
+      [
+        9,
+        4,
+        13,
+        0,
+        75,
+        67,
+        0
+      ],
+      [
+        1,
+        8,
+        33,
+        0,
+        33,
+        924,
+        1
       ],
       [
         0,
-        4,
+        2,
+        1,
         0,
         0,
-        3,
-        4,
-        11
+        10,
+        9
       ]
-    ],
-    "mean_gate_weights": {
-      "all_test": [
-        0.0001,
-        0.9999,
-        0.0001
-      ],
-      "by_class": {
-        "akiec": [
-          0.0001,
-          0.9998,
-          0.0001
-        ],
-        "bcc": [
-          0.0,
-          0.9999,
-          0.0
-        ],
-        "bkl": [
-          0.0,
-          0.9999,
-          0.0001
-        ],
-        "df": [
-          0.0,
-          1.0,
-          0.0
-        ],
-        "mel": [
-          0.0,
-          1.0,
-          0.0
-        ],
-        "nv": [
-          0.0001,
-          0.9999,
-          0.0001
-        ],
-        "vasc": [
-          0.0,
-          1.0,
-          0.0
-        ]
-      }
-    }
+    ]
   }
 }

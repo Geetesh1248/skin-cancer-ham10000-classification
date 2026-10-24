@@ -1,195 +1,207 @@
 {
-  "comparison": [
+  "leaderboard": [
     {
       "model": "XGBoost",
-      "accuracy": 0.7609,
-      "macro_f1": 0.5044,
-      "weighted_f1": 0.7478,
-      "mel_recall": 0.4821
-    },
-    {
-      "model": "CatBoost",
-      "accuracy": 0.672,
-      "macro_f1": 0.4635,
-      "weighted_f1": 0.6948,
-      "mel_recall": 0.5893
+      "accuracy": 0.767535,
+      "macro_f1": 0.50781,
+      "weighted_f1": 0.750747,
+      "mel_recall": 0.440476
     },
     {
       "model": "LightGBM",
-      "accuracy": 0.7448,
-      "macro_f1": 0.4852,
-      "weighted_f1": 0.7406,
-      "mel_recall": 0.4702
+      "accuracy": 0.741483,
+      "macro_f1": 0.484512,
+      "weighted_f1": 0.738589,
+      "mel_recall": 0.494048
     },
     {
-      "model": "Simple Average",
-      "accuracy": 0.7502,
-      "macro_f1": 0.5129,
-      "weighted_f1": 0.7466,
-      "mel_recall": 0.5595
+      "model": "CatBoost",
+      "accuracy": 0.759519,
+      "macro_f1": 0.533715,
+      "weighted_f1": 0.751841,
+      "mel_recall": 0.470238
     },
     {
-      "model": "MoE v2 (21-d Gate)",
-      "accuracy": 0.7228,
-      "macro_f1": 0.4923,
-      "weighted_f1": 0.7305,
-      "mel_recall": 0.5536
+      "model": "Tuned Soft-Voting",
+      "accuracy": 0.760187,
+      "macro_f1": 0.526905,
+      "weighted_f1": 0.752847,
+      "mel_recall": 0.482143
+    },
+    {
+      "model": "MoE (88-D Gate)",
+      "accuracy": 0.764863,
+      "macro_f1": 0.520427,
+      "weighted_f1": 0.752822,
+      "mel_recall": 0.446429
     }
   ],
-  "mean_gate_weights": {
-    "xgboost": 0.163,
-    "catboost": 0.7004,
-    "lightgbm": 0.1367,
-    "by_class": {
-      "akiec": [
-        0.1464,
-        0.7286,
-        0.125
-      ],
-      "bcc": [
-        0.1611,
-        0.7075,
-        0.1314
-      ],
-      "bkl": [
-        0.1343,
-        0.736,
-        0.1297
-      ],
-      "df": [
-        0.1827,
-        0.6934,
-        0.1239
-      ],
-      "mel": [
-        0.1426,
-        0.7099,
-        0.1475
-      ],
-      "nv": [
-        0.1705,
-        0.6925,
-        0.137
-      ],
-      "vasc": [
-        0.2079,
-        0.6468,
-        0.1454
-      ]
-    }
+  "tuned_soft_voting": {
+    "weights": {
+      "xgboost": 0.0,
+      "catboost": 0.7,
+      "lightgbm": 0.3
+    },
+    "accuracy": 0.760187,
+    "macro_f1": 0.526905,
+    "weighted_f1": 0.752847,
+    "mel_recall": 0.482143
   },
-  "moe_v2_detailed": {
-    "accuracy": 0.7228,
-    "macro_f1": 0.4923,
-    "weighted_f1": 0.7305,
-    "mel_recall": 0.5536,
+  "moe_gating": {
+    "best_epoch": 34,
+    "mean_gate_weights": {
+      "xgboost": 0.5906,
+      "catboost": 0.131,
+      "lightgbm": 0.2785,
+      "by_class": {
+        "akiec": [
+          0.3944,
+          0.3227,
+          0.2828
+        ],
+        "bcc": [
+          0.2683,
+          0.3941,
+          0.3376
+        ],
+        "bkl": [
+          0.5088,
+          0.198,
+          0.2932
+        ],
+        "df": [
+          0.2926,
+          0.4389,
+          0.2685
+        ],
+        "mel": [
+          0.5183,
+          0.1353,
+          0.3464
+        ],
+        "nv": [
+          0.6625,
+          0.0787,
+          0.2588
+        ],
+        "vasc": [
+          0.3379,
+          0.3207,
+          0.3414
+        ]
+      }
+    },
+    "accuracy": 0.764863,
+    "macro_f1": 0.520427,
+    "weighted_f1": 0.752822,
+    "mel_recall": 0.446429,
     "per_class": {
       "akiec": {
-        "precision": 0.3824,
-        "recall": 0.5098,
-        "f1": 0.437,
+        "precision": 0.45,
+        "recall": 0.5294,
+        "f1": 0.4865,
         "support": 51
       },
       "bcc": {
-        "precision": 0.4574,
-        "recall": 0.5584,
-        "f1": 0.5029,
+        "precision": 0.569,
+        "recall": 0.4286,
+        "f1": 0.4889,
         "support": 77
       },
       "bkl": {
-        "precision": 0.4302,
-        "recall": 0.4904,
-        "f1": 0.4583,
+        "precision": 0.4966,
+        "recall": 0.4713,
+        "f1": 0.4837,
         "support": 157
       },
       "df": {
-        "precision": 0.5,
-        "recall": 0.0909,
-        "f1": 0.1538,
+        "precision": 1.0,
+        "recall": 0.1364,
+        "f1": 0.24,
         "support": 22
       },
       "mel": {
-        "precision": 0.4408,
-        "recall": 0.5536,
-        "f1": 0.4908,
+        "precision": 0.5515,
+        "recall": 0.4464,
+        "f1": 0.4934,
         "support": 168
       },
       "nv": {
-        "precision": 0.8974,
-        "recall": 0.831,
-        "f1": 0.8629,
+        "precision": 0.8548,
+        "recall": 0.924,
+        "f1": 0.888,
         "support": 1000
       },
       "vasc": {
-        "precision": 0.6667,
-        "recall": 0.4545,
-        "f1": 0.5405,
+        "precision": 0.9,
+        "recall": 0.4091,
+        "f1": 0.5625,
         "support": 22
       }
     },
     "confusion_matrix": [
       [
-        26,
+        27,
         3,
-        12,
+        11,
         0,
-        5,
-        5,
+        4,
+        6,
         0
       ],
       [
         11,
-        43,
+        33,
+        12,
+        0,
         7,
+        14,
+        0
+      ],
+      [
+        8,
+        7,
+        74,
+        0,
+        17,
+        51,
+        0
+      ],
+      [
+        4,
         1,
-        6,
+        5,
+        3,
+        0,
         9,
         0
       ],
       [
-        10,
+        9,
+        4,
         13,
-        77,
         0,
-        23,
+        75,
+        67,
+        0
+      ],
+      [
+        1,
+        8,
         33,
+        0,
+        33,
+        924,
         1
       ],
       [
-        3,
-        3,
-        8,
+        0,
         2,
         1,
-        5,
-        0
-      ],
-      [
+        0,
+        0,
         10,
-        8,
-        19,
-        0,
-        93,
-        38,
-        0
-      ],
-      [
-        8,
-        20,
-        56,
-        1,
-        80,
-        831,
-        4
-      ],
-      [
-        0,
-        4,
-        0,
-        0,
-        3,
-        5,
-        10
+        9
       ]
     ]
   }
