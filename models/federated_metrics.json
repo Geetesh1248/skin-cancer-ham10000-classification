@@ -1,0 +1,464 @@
+{
+  "model": "Federated Learning (FedAvg 3-Hospital)",
+  "framework": "PyTorch FedAvg",
+  "num_clients": 3,
+  "num_rounds": 15,
+  "local_epochs_per_round": 3,
+  "client_distribution": {
+    "Hospital A": {
+      "sample_count": 2352,
+      "lesion_count": 1743,
+      "class_counts": {
+        "akiec": 78,
+        "bcc": 121,
+        "bkl": 259,
+        "df": 25,
+        "mel": 259,
+        "nv": 1577,
+        "vasc": 33
+      },
+      "smoothed_class_weights": {
+        "akiec": 2.0755,
+        "bcc": 1.6664,
+        "bkl": 1.139,
+        "df": 3.6661,
+        "mel": 1.139,
+        "nv": 0.4616,
+        "vasc": 3.1909
+      }
+    },
+    "Hospital B": {
+      "sample_count": 2351,
+      "lesion_count": 1743,
+      "class_counts": {
+        "akiec": 77,
+        "bcc": 122,
+        "bkl": 258,
+        "df": 26,
+        "mel": 259,
+        "nv": 1576,
+        "vasc": 33
+      },
+      "smoothed_class_weights": {
+        "akiec": 2.0885,
+        "bcc": 1.6592,
+        "bkl": 1.141,
+        "df": 3.5941,
+        "mel": 1.1387,
+        "nv": 0.4616,
+        "vasc": 3.1902
+      }
+    },
+    "Hospital C": {
+      "sample_count": 2351,
+      "lesion_count": 1742,
+      "class_counts": {
+        "akiec": 78,
+        "bcc": 122,
+        "bkl": 258,
+        "df": 25,
+        "mel": 259,
+        "nv": 1577,
+        "vasc": 32
+      },
+      "smoothed_class_weights": {
+        "akiec": 2.0751,
+        "bcc": 1.6592,
+        "bkl": 1.141,
+        "df": 3.6653,
+        "mel": 1.1387,
+        "nv": 0.4615,
+        "vasc": 3.2397
+      }
+    }
+  },
+  "best_round": 8,
+  "best_val_macro_f1": 0.5873,
+  "round_telemetry": [
+    {
+      "round": 1,
+      "val_loss": 0.7458,
+      "val_accuracy": 0.7309,
+      "val_macro_f1": 0.4893,
+      "val_weighted_f1": 0.7396,
+      "val_mel_recall": 0.4167,
+      "test_loss": 0.7667,
+      "test_accuracy": 0.7214,
+      "test_macro_f1": 0.4932,
+      "test_weighted_f1": 0.7335,
+      "test_mel_recall": 0.5119,
+      "local_val_accuracies": {
+        "Hospital A": 0.7357,
+        "Hospital B": 0.7466,
+        "Hospital C": 0.7377
+      }
+    },
+    {
+      "round": 2,
+      "val_loss": 0.6667,
+      "val_accuracy": 0.7609,
+      "val_macro_f1": 0.5478,
+      "val_weighted_f1": 0.7691,
+      "val_mel_recall": 0.5298,
+      "test_loss": 0.6969,
+      "test_accuracy": 0.7435,
+      "test_macro_f1": 0.5456,
+      "test_weighted_f1": 0.7528,
+      "test_mel_recall": 0.506,
+      "local_val_accuracies": {
+        "Hospital A": 0.7493,
+        "Hospital B": 0.7596,
+        "Hospital C": 0.752
+      }
+    },
+    {
+      "round": 3,
+      "val_loss": 0.6615,
+      "val_accuracy": 0.7637,
+      "val_macro_f1": 0.5648,
+      "val_weighted_f1": 0.7735,
+      "val_mel_recall": 0.5179,
+      "test_loss": 0.6837,
+      "test_accuracy": 0.7442,
+      "test_macro_f1": 0.5396,
+      "test_weighted_f1": 0.7536,
+      "test_mel_recall": 0.4762,
+      "local_val_accuracies": {
+        "Hospital A": 0.7432,
+        "Hospital B": 0.7616,
+        "Hospital C": 0.7507
+      }
+    },
+    {
+      "round": 4,
+      "val_loss": 0.6379,
+      "val_accuracy": 0.7814,
+      "val_macro_f1": 0.5694,
+      "val_weighted_f1": 0.7863,
+      "val_mel_recall": 0.6071,
+      "test_loss": 0.6733,
+      "test_accuracy": 0.7555,
+      "test_macro_f1": 0.5655,
+      "test_weighted_f1": 0.7626,
+      "test_mel_recall": 0.5774,
+      "local_val_accuracies": {
+        "Hospital A": 0.7459,
+        "Hospital B": 0.7678,
+        "Hospital C": 0.7507
+      }
+    },
+    {
+      "round": 5,
+      "val_loss": 0.6528,
+      "val_accuracy": 0.7794,
+      "val_macro_f1": 0.5739,
+      "val_weighted_f1": 0.7851,
+      "val_mel_recall": 0.5833,
+      "test_loss": 0.6797,
+      "test_accuracy": 0.7562,
+      "test_macro_f1": 0.5725,
+      "test_weighted_f1": 0.7626,
+      "test_mel_recall": 0.5119,
+      "local_val_accuracies": {
+        "Hospital A": 0.7514,
+        "Hospital B": 0.7609,
+        "Hospital C": 0.7657
+      }
+    },
+    {
+      "round": 6,
+      "val_loss": 0.6627,
+      "val_accuracy": 0.7828,
+      "val_macro_f1": 0.5676,
+      "val_weighted_f1": 0.7888,
+      "val_mel_recall": 0.6012,
+      "test_loss": 0.6922,
+      "test_accuracy": 0.7689,
+      "test_macro_f1": 0.5891,
+      "test_weighted_f1": 0.773,
+      "test_mel_recall": 0.5298,
+      "local_val_accuracies": {
+        "Hospital A": 0.7568,
+        "Hospital B": 0.7657,
+        "Hospital C": 0.7602
+      }
+    },
+    {
+      "round": 7,
+      "val_loss": 0.6671,
+      "val_accuracy": 0.7855,
+      "val_macro_f1": 0.5834,
+      "val_weighted_f1": 0.7885,
+      "val_mel_recall": 0.5595,
+      "test_loss": 0.705,
+      "test_accuracy": 0.7662,
+      "test_macro_f1": 0.5781,
+      "test_weighted_f1": 0.7701,
+      "test_mel_recall": 0.5238,
+      "local_val_accuracies": {
+        "Hospital A": 0.7541,
+        "Hospital B": 0.7678,
+        "Hospital C": 0.7684
+      }
+    },
+    {
+      "round": 8,
+      "val_loss": 0.6788,
+      "val_accuracy": 0.7821,
+      "val_macro_f1": 0.5873,
+      "val_weighted_f1": 0.7857,
+      "val_mel_recall": 0.6012,
+      "test_loss": 0.7201,
+      "test_accuracy": 0.7722,
+      "test_macro_f1": 0.5751,
+      "test_weighted_f1": 0.776,
+      "test_mel_recall": 0.5536,
+      "local_val_accuracies": {
+        "Hospital A": 0.763,
+        "Hospital B": 0.7773,
+        "Hospital C": 0.7678
+      }
+    },
+    {
+      "round": 9,
+      "val_loss": 0.7032,
+      "val_accuracy": 0.7787,
+      "val_macro_f1": 0.5789,
+      "val_weighted_f1": 0.7833,
+      "val_mel_recall": 0.5893,
+      "test_loss": 0.7467,
+      "test_accuracy": 0.7662,
+      "test_macro_f1": 0.5726,
+      "test_weighted_f1": 0.7705,
+      "test_mel_recall": 0.5655,
+      "local_val_accuracies": {
+        "Hospital A": 0.7664,
+        "Hospital B": 0.7671,
+        "Hospital C": 0.7616
+      }
+    },
+    {
+      "round": 10,
+      "val_loss": 0.7161,
+      "val_accuracy": 0.7828,
+      "val_macro_f1": 0.5667,
+      "val_weighted_f1": 0.7855,
+      "val_mel_recall": 0.5774,
+      "test_loss": 0.7477,
+      "test_accuracy": 0.7629,
+      "test_macro_f1": 0.5638,
+      "test_weighted_f1": 0.767,
+      "test_mel_recall": 0.5417,
+      "local_val_accuracies": {
+        "Hospital A": 0.7609,
+        "Hospital B": 0.7746,
+        "Hospital C": 0.776
+      }
+    },
+    {
+      "round": 11,
+      "val_loss": 0.734,
+      "val_accuracy": 0.7848,
+      "val_macro_f1": 0.5803,
+      "val_weighted_f1": 0.7855,
+      "val_mel_recall": 0.5595,
+      "test_loss": 0.7598,
+      "test_accuracy": 0.7675,
+      "test_macro_f1": 0.5592,
+      "test_weighted_f1": 0.7692,
+      "test_mel_recall": 0.5417,
+      "local_val_accuracies": {
+        "Hospital A": 0.7623,
+        "Hospital B": 0.7705,
+        "Hospital C": 0.7561
+      }
+    },
+    {
+      "round": 12,
+      "val_loss": 0.7476,
+      "val_accuracy": 0.7814,
+      "val_macro_f1": 0.5569,
+      "val_weighted_f1": 0.7822,
+      "val_mel_recall": 0.5119,
+      "test_loss": 0.7969,
+      "test_accuracy": 0.7702,
+      "test_macro_f1": 0.5675,
+      "test_weighted_f1": 0.772,
+      "test_mel_recall": 0.4881,
+      "local_val_accuracies": {
+        "Hospital A": 0.7637,
+        "Hospital B": 0.7739,
+        "Hospital C": 0.7753
+      }
+    },
+    {
+      "round": 13,
+      "val_loss": 0.7502,
+      "val_accuracy": 0.7828,
+      "val_macro_f1": 0.5673,
+      "val_weighted_f1": 0.783,
+      "val_mel_recall": 0.5179,
+      "test_loss": 0.7879,
+      "test_accuracy": 0.7702,
+      "test_macro_f1": 0.5657,
+      "test_weighted_f1": 0.7695,
+      "test_mel_recall": 0.5,
+      "local_val_accuracies": {
+        "Hospital A": 0.7773,
+        "Hospital B": 0.7671,
+        "Hospital C": 0.7753
+      }
+    },
+    {
+      "round": 14,
+      "val_loss": 0.7998,
+      "val_accuracy": 0.7814,
+      "val_macro_f1": 0.561,
+      "val_weighted_f1": 0.7809,
+      "val_mel_recall": 0.5179,
+      "test_loss": 0.8047,
+      "test_accuracy": 0.7762,
+      "test_macro_f1": 0.5766,
+      "test_weighted_f1": 0.7763,
+      "test_mel_recall": 0.5238,
+      "local_val_accuracies": {
+        "Hospital A": 0.7691,
+        "Hospital B": 0.7725,
+        "Hospital C": 0.7643
+      }
+    },
+    {
+      "round": 15,
+      "val_loss": 0.8099,
+      "val_accuracy": 0.7814,
+      "val_macro_f1": 0.5577,
+      "val_weighted_f1": 0.7847,
+      "val_mel_recall": 0.5536,
+      "test_loss": 0.8399,
+      "test_accuracy": 0.7629,
+      "test_macro_f1": 0.5617,
+      "test_weighted_f1": 0.7659,
+      "test_mel_recall": 0.5119,
+      "local_val_accuracies": {
+        "Hospital A": 0.7821,
+        "Hospital B": 0.7589,
+        "Hospital C": 0.7705
+      }
+    }
+  ],
+  "final_test_metrics": {
+    "accuracy": 0.7722,
+    "macro_f1": 0.5751,
+    "weighted_f1": 0.776,
+    "mel_recall": 0.5536,
+    "per_class": {
+      "akiec": {
+        "precision": 0.425,
+        "recall": 0.6667,
+        "f1": 0.5191,
+        "support": 51
+      },
+      "bcc": {
+        "precision": 0.5122,
+        "recall": 0.5455,
+        "f1": 0.5283,
+        "support": 77
+      },
+      "bkl": {
+        "precision": 0.5724,
+        "recall": 0.5541,
+        "f1": 0.5631,
+        "support": 157
+      },
+      "df": {
+        "precision": 0.3684,
+        "recall": 0.3182,
+        "f1": 0.3415,
+        "support": 22
+      },
+      "mel": {
+        "precision": 0.5345,
+        "recall": 0.5536,
+        "f1": 0.5439,
+        "support": 168
+      },
+      "nv": {
+        "precision": 0.9081,
+        "recall": 0.879,
+        "f1": 0.8933,
+        "support": 1000
+      },
+      "vasc": {
+        "precision": 0.6364,
+        "recall": 0.6364,
+        "f1": 0.6364,
+        "support": 22
+      }
+    },
+    "confusion_matrix": [
+      [
+        34,
+        1,
+        9,
+        1,
+        4,
+        2,
+        0
+      ],
+      [
+        12,
+        42,
+        8,
+        3,
+        4,
+        7,
+        1
+      ],
+      [
+        10,
+        12,
+        87,
+        3,
+        19,
+        26,
+        0
+      ],
+      [
+        2,
+        5,
+        3,
+        7,
+        1,
+        4,
+        0
+      ],
+      [
+        11,
+        2,
+        13,
+        0,
+        93,
+        47,
+        2
+      ],
+      [
+        11,
+        16,
+        32,
+        5,
+        52,
+        879,
+        5
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        1,
+        3,
+        14
+      ]
+    ]
+  }
+}
