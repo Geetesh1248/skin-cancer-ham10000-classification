@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAM10000 Skin Lesion Diagnosis | Live MoE & FedAvg Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            slate: {
+              850: '#151e2e',
+              950: '#080d1a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+    .active-tab {
+      color: #38bdf8 !important;
+      border-bottom: 2px solid #38bdf8 !important;
+      background: rgba(14, 165, 233, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- ── Top Global Header ────────────────────────────────────────────────── -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
+          <i class="fa-solid fa-microscope text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+              HAM10000 Skin Lesion Diagnosis
+            </h1>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/30">
+              Clinical AI Lab
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            ResNet-50 Embeddings • 88-D Context-Aware MoE • 3-Hospital FedAvg • MANIT Bhopal
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Ribbon -->
+      <div class="hidden xl:flex items-center space-x-3 text-xs">
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-400">Dataset:</span>
+          <span class="font-semibold text-slate-200">10,015 Scans</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-center space-x-2">
+          <i class="fa-solid fa-shield-halved text-sky-400"></i>
+          <span class="text-slate-400">Patient Leakage:</span>
+          <span class="font-semibold text-emerald-400">0.0% Group-Safe</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-center space-x-2">
+          <i class="fa-solid fa-hospital-user text-indigo-400"></i>
+          <span class="text-slate-400">FedAvg Peak Acc:</span>
+          <span class="font-bold text-sky-300">77.22%</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-center space-x-2">
+          <i class="fa-solid fa-brain text-purple-400"></i>
+          <span class="text-slate-400">MoE Gate:</span>
+          <span class="font-semibold text-purple-300">88-D Multimodal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+      <nav class="flex space-x-2 sm:space-x-8 text-sm font-medium">
+        <button id="nav-scanner" onclick="switchTab('scanner')" class="active-tab py-3 px-3 transition-colors flex items-center space-x-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+          <i class="fa-solid fa-bolt-lightning text-sky-400"></i>
+          <span>Live Diagnostic Scanner</span>
+        </button>
+        <button id="nav-federated" onclick="switchTab('federated')" class="py-3 px-3 transition-colors flex items-center space-x-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+          <i class="fa-solid fa-network-wired text-indigo-400"></i>
+          <span>Federated Learning (FedAvg)</span>
+        </button>
+        <button id="nav-leaderboard" onclick="switchTab('leaderboard')" class="py-3 px-3 transition-colors flex items-center space-x-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+          <i class="fa-solid fa-trophy text-amber-400"></i>
+          <span>Benchmark Leaderboard & MoE Analytics</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main Content Area ────────────────────────────────────────────────── -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- =======================================================================
+         TAB 1: LIVE CLINICAL DIAGNOSTIC SCANNER
+         ======================================================================= -->
+    <div id="tab-scanner" class="space-y-6">
+
+      <!-- One-Click Verified Test Samples Bar -->
+      <div class="glass-card rounded-2xl p-4 sm:p-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3.5">
+          <div>
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-images text-sky-400"></i>
+              One-Click Verified Test Samples
+            </h2>
+            <p class="text-xs text-slate-400">
+              Directly loaded from the held-out patient-isolated test set (1 scan per pathology). Click any card for instant real-time inference.
+            </p>
+          </div>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+            N = 1,497 Patient-Safe Split
+          </span>
+        </div>
+
+        <!-- Sample Cards Grid (Populated dynamically) -->
+        <div id="samples-container" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div class="col-span-full py-8 text-center text-slate-500 text-xs">
+            <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Loading test set samples...
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Diagnosis & Visualizer Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Image Viewer & Drag/Drop Upload (4 cols) -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-sm font-semibold text-slate-200 mb-3 flex items-center justify-between">
+              <span>Active Dermoscopic Scan</span>
+              <span id="scan-source-badge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">No Image</span>
+            </h3>
+
+            <!-- Image Viewport -->
+            <div id="image-viewport" class="relative aspect-square w-full rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center overflow-hidden group">
+              <img id="preview-image" src="" alt="Dermatoscopy Scan" class="w-full h-full object-cover hidden">
+              <div id="image-placeholder" class="text-center p-6 text-slate-500">
+                <i class="fa-regular fa-image text-4xl mb-2 opacity-40"></i>
+                <p class="text-xs">Select a test sample above or upload custom scan below</p>
+              </div>
+
+              <!-- Scanning Laser Overlay Animation -->
+              <div id="scan-laser" class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-sky-400 to-transparent shadow-[0_0_12px_#38bdf8] hidden"></div>
+            </div>
+
+            <!-- Ground Truth Banner (if sample) -->
+            <div id="ground-truth-box" class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs hidden">
+              <div class="flex items-center justify-between text-slate-400 mb-1">
+                <span>Ground-Truth Pathology:</span>
+                <span id="gt-id" class="font-mono text-slate-300">ISIC_0000000</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span id="gt-code" class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-slate-800 text-slate-200">mel</span>
+                <span id="gt-name" class="font-semibold text-white">Melanoma</span>
+                <span id="gt-risk" class="ml-auto px-2 py-0.5 rounded text-[10px] font-semibold uppercase">Malignant</span>
+              </div>
+            </div>
+
+            <!-- Custom File Upload Zone -->
+            <div class="mt-4 pt-4 border-t border-slate-800">
+              <label class="block text-xs font-medium text-slate-300 mb-2">Or Upload Custom Dermatoscopy Scan:</label>
+              <div id="drop-zone" class="border-2 border-dashed border-slate-700 hover:border-sky-500/60 rounded-xl p-4 text-center cursor-pointer transition-colors bg-slate-900/40">
+                <input type="file" id="file-input" accept="image/jpeg,image/png" class="hidden">
+                <i class="fa-solid fa-cloud-arrow-up text-xl text-slate-400 mb-1"></i>
+                <p class="text-xs text-slate-300 font-medium">Click or Drag & Drop image</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">JPEG or PNG (224×224 auto-normalized)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Dual Prediction & Router Visualizer (8 cols) -->
+        <div class="lg:col-span-8 space-y-5">
+
+          <!-- Dual Primary Diagnosis Banner -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Card 1: Federated Global Model (Best Benchmark) -->
+            <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500 relative overflow-hidden">
+              <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Federated Global Model</span>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  77.22% Test Acc (Best)
+                </span>
+              </div>
+
+              <div id="fed-diag-box" class="py-2">
+                <div class="text-slate-500 text-xs py-4 text-center">Awaiting scan inference...</div>
+              </div>
+            </div>
+
+            <!-- Card 2: 88-D Mixture of Experts (MoE) -->
+            <div class="glass-card rounded-2xl p-5 border-l-4 border-l-indigo-500 relative overflow-hidden">
+              <div class="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">88-D Context-Aware MoE</span>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                  Multimodal Gate
+                </span>
+              </div>
+
+              <div id="moe-diag-box" class="py-2">
+                <div class="text-slate-500 text-xs py-4 text-center">Awaiting scan inference...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live 88-D MoE Gate Router Visualizer -->
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-route text-sky-400"></i>
+                  Live 88-D MoE Gate Routing Allocation
+                </h3>
+                <p class="text-xs text-slate-400">
+                  Sample-specific gating weights dynamically assigned across the 3 frozen GBDT estimators based on 64-D PCA + 21-D probabilities + 3-D Shannon entropy.
+                </p>
+              </div>
+              <span id="gate-dominant-badge" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                Gate: Idle
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+              <!-- Doughnut Chart (4 cols) -->
+              <div class="md:col-span-4 flex flex-col items-center justify-center">
+                <div class="relative w-36 h-36">
+                  <canvas id="gateChart"></canvas>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                    <span class="text-[10px] uppercase text-slate-400">Router</span>
+                    <span id="gate-active-expert" class="text-xs font-bold text-white">MoE</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Animated Trust Bars & Uncertainty Indicators (8 cols) -->
+              <div class="md:col-span-8 space-y-3.5">
+                <!-- XGBoost Bar -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-sky-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-tree"></i> XGBoost (Hist Booster)
+                    </span>
+                    <div class="space-x-2 font-mono">
+                      <span class="text-slate-400">Entropy: <span id="entropy-xgb" class="text-slate-200">--</span></span>
+                      <span id="weight-xgb" class="font-bold text-sky-300">0.0%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-slate-800/80 rounded-full h-2.5 overflow-hidden">
+                    <div id="bar-xgb" class="bg-gradient-to-r from-sky-500 to-cyan-400 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <!-- CatBoost Bar -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-amber-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-shield-cat"></i> CatBoost (Oblivious Trees)
+                    </span>
+                    <div class="space-x-2 font-mono">
+                      <span class="text-slate-400">Entropy: <span id="entropy-cat" class="text-slate-200">--</span></span>
+                      <span id="weight-cat" class="font-bold text-amber-300">0.0%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-slate-800/80 rounded-full h-2.5 overflow-hidden">
+                    <div id="bar-cat" class="bg-gradient-to-r from-amber-500 to-yellow-400 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <!-- LightGBM Bar -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-emerald-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-leaf"></i> LightGBM (Leaf-wise Split)
+                    </span>
+                    <div class="space-x-2 font-mono">
+                      <span class="text-slate-400">Entropy: <span id="entropy-lgb" class="text-slate-200">--</span></span>
+                      <span id="weight-lgb" class="font-bold text-emerald-300">0.0%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-slate-800/80 rounded-full h-2.5 overflow-hidden">
+                    <div id="bar-lgb" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- All-Model 7-Class Probability Comparison Chart -->
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-chart-bar text-sky-400"></i>
+                  7-Class Probability Consensus Across All Paradigms
+                </h3>
+                <p class="text-xs text-slate-400">Comparing Federated Global, MoE, XGBoost, CatBoost, and LightGBM probability outputs</p>
+              </div>
+            </div>
+            <div class="h-64 w-full">
+              <canvas id="probsChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         TAB 2: FEDERATED LEARNING (3-HOSPITAL FEDAVG) TELEMETRY
+         ======================================================================= -->
+    <div id="tab-federated" class="space-y-6 hidden">
+
+      <!-- Hospital Architecture Overview Banner -->
+      <div class="glass-card rounded-2xl p-6 relative overflow-hidden">
+        <div class="max-w-3xl">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 uppercase tracking-wider">
+            Decentralized Privacy-Preserving AI
+          </span>
+          <h2 class="text-xl font-bold text-white mt-2 mb-2">
+            Multi-Hospital Collaborative Network (3-Client FedAvg)
+          </h2>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            In compliance with medical data governance (HIPAA & GDPR), private patient dermoscopy scans cannot leave local clinical servers.
+            The 7,054 training samples are partitioned across 3 hospital nodes with <strong class="text-emerald-400">0% lesion overlap</strong>.
+            Each hospital optimizes local classification heads for 3 epochs using site-specific square-root smoothed weights, transmitting only parameter gradients to the central coordinator.
+          </p>
+        </div>
+
+        <!-- 3 Hospital Node Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-hospital text-sky-400"></i> Hospital A
+              </span>
+              <span class="text-emerald-400 font-mono text-[11px]">0% Overlap</span>
+            </div>
+            <div class="space-y-1 text-xs text-slate-400">
+              <div class="flex justify-between"><span>Training Scans:</span> <strong class="text-slate-200">2,352</strong></div>
+              <div class="flex justify-between"><span>Unique Lesions:</span> <strong class="text-slate-200">1,743</strong></div>
+              <div class="flex justify-between"><span>Weight Smoothed:</span> <span class="text-sky-300">Yes (sqrt ratio)</span></div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-hospital text-indigo-400"></i> Hospital B
+              </span>
+              <span class="text-emerald-400 font-mono text-[11px]">0% Overlap</span>
+            </div>
+            <div class="space-y-1 text-xs text-slate-400">
+              <div class="flex justify-between"><span>Training Scans:</span> <strong class="text-slate-200">2,351</strong></div>
+              <div class="flex justify-between"><span>Unique Lesions:</span> <strong class="text-slate-200">1,743</strong></div>
+              <div class="flex justify-between"><span>Weight Smoothed:</span> <span class="text-indigo-300">Yes (sqrt ratio)</span></div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-hospital text-purple-400"></i> Hospital C
+              </span>
+              <span class="text-emerald-400 font-mono text-[11px]">0% Overlap</span>
+            </div>
+            <div class="space-y-1 text-xs text-slate-400">
+              <div class="flex justify-between"><span>Training Scans:</span> <strong class="text-slate-200">2,351</strong></div>
+              <div class="flex justify-between"><span>Unique Lesions:</span> <strong class="text-slate-200">1,742</strong></div>
+              <div class="flex justify-between"><span>Weight Smoothed:</span> <span class="text-purple-300">Yes (sqrt ratio)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15-Round Communication Telemetry Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- FedAvg Convergence Curve -->
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-sm font-bold text-white">Global FedAvg Convergence (15 Rounds)</h3>
+              <p class="text-xs text-slate-400">Tracking Global Test Accuracy and Validation Macro F1 across rounds</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              Peak: Round 8
+            </span>
+          </div>
+          <div class="h-64">
+            <canvas id="fedConvergenceChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Local Hospital Validation Accuracy Curves -->
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-sm font-bold text-white">Hospital Node Validation Curves</h3>
+              <p class="text-xs text-slate-400">Comparing local model validation performance before FedAvg aggregation</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+              3 Epochs / Round
+            </span>
+          </div>
+          <div class="h-64">
+            <canvas id="fedClientsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Federated Global Model Performance Summary -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- 7x7 Confusion Matrix (7 cols) -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white mb-1">Federated Global Model: 7×7 Confusion Matrix</h3>
+          <p class="text-xs text-slate-400 mb-3">Held-out test set (N = 1,497 images, 0 shared lesions)</p>
+          <div id="fed-confusion-matrix" class="overflow-x-auto text-xs">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Per-Class Metrics Table (5 cols) -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white mb-1">Per-Class Sensitivity & Specificity</h3>
+          <p class="text-xs text-slate-400 mb-3">Demonstrating clinical efficacy on rare pathologies</p>
+          <div id="fed-per-class-table" class="overflow-x-auto text-xs">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         TAB 3: MODEL LEADERBOARD & MOE ANALYTICS
+         ======================================================================= -->
+    <div id="tab-leaderboard" class="space-y-6 hidden">
+
+      <!-- Leaderboard Header Banner -->
+      <div class="glass-card rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase tracking-wider">
+            Verified Scientific Benchmark
+          </span>
+          <h2 class="text-lg font-bold text-white mt-1.5">
+            Full 6-Model Benchmark Leaderboard (Held-Out Test Set, N = 1,497)
+          </h2>
+          <p class="text-xs text-slate-400">
+            Strictly evaluated on identical patient-isolated boundaries. Federated learning achieves the highest Macro F1 (0.5751) and Weighted F1 (0.7760).
+          </p>
+        </div>
+      </div>
+
+      <!-- Leaderboard Table -->
+      <div class="glass-card rounded-2xl p-5 overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[11px]">
+              <th class="py-3 px-3">Model Architecture</th>
+              <th class="py-3 px-3">Paradigm</th>
+              <th class="py-3 px-3 text-center">Test Accuracy</th>
+              <th class="py-3 px-3 text-center">Macro F1</th>
+              <th class="py-3 px-3 text-center">Weighted F1</th>
+              <th class="py-3 px-3 text-center">Melanoma Recall</th>
+              <th class="py-3 px-3">Key Clinical Advantage</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody" class="divide-y divide-slate-800/60 font-mono">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MoE Routing by Ground-Truth Pathology -->
+      <div class="glass-card rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-sm font-bold text-white">Adaptive MoE Routing Specialization by Pathology</h3>
+            <p class="text-xs text-slate-400">
+              Mean gating weight distribution assigned across XGBoost, CatBoost, and LightGBM for each ground-truth lesion class.
+            </p>
+          </div>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
+            88-D Context Routing
+          </span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 text-[11px]">
+                <th class="py-2.5 px-3">Class</th>
+                <th class="py-2.5 px-3">Clinical Pathology</th>
+                <th class="py-2.5 px-3 text-center text-sky-400">XGBoost %</th>
+                <th class="py-2.5 px-3 text-center text-amber-400">CatBoost %</th>
+                <th class="py-2.5 px-3 text-center text-emerald-400">LightGBM %</th>
+                <th class="py-2.5 px-3">Learned Clinical Rationale</th>
+              </tr>
+            </thead>
+            <tbody id="routing-tbody" class="divide-y divide-slate-800/60">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer class="border-t border-slate-800/80 bg-slate-900/60 py-4 text-center text-xs text-slate-500">
+    <p>HAM10000 Skin Lesion Clinical Research Project • MANIT Bhopal • Fully Local PyTorch / FastAPI Engine</p>
+  </footer>
+
+  <!-- ── JavaScript Application Logic ────────────────────────────────────── -->
+  <script>
+    // State
+    let currentSamples = [];
+    let currentBenchmarks = null;
+    let gateChartInstance = null;
+    let probsChartInstance = null;
+    let fedConvergenceChartInstance = null;
+    let fedClientsChartInstance = null;
+
+    const CLASS_METADATA = {
+      'nv': { name: 'Melanocytic Nevi', risk: 'Benign', badge_color: 'emerald' },
+      'mel': { name: 'Melanoma', risk: 'Malignant', badge_color: 'rose' },
+      'bkl': { name: 'Benign Keratosis', risk: 'Benign', badge_color: 'emerald' },
+      'bcc': { name: 'Basal Cell Carcinoma', risk: 'Malignant', badge_color: 'amber' },
+      'akiec': { name: 'Actinic Keratoses', risk: 'Precancerous', badge_color: 'amber' },
+      'vasc': { name: 'Vascular Lesions', risk: 'Benign', badge_color: 'emerald' },
+      'df': { name: 'Dermatofibroma', risk: 'Benign', badge_color: 'emerald' },
+    };
+
+    // Tab Switching
+    function switchTab(tabName) {
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
+      document.getElementById('nav-' + tabName).classList.add('active-tab');
+
+      document.getElementById('tab-scanner').classList.add('hidden');
+      document.getElementById('tab-federated').classList.add('hidden');
+      document.getElementById('tab-leaderboard').classList.add('hidden');
+
+      document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+      // Trigger chart resize if needed
+      if (tabName === 'federated' && fedConvergenceChartInstance) {
+        fedConvergenceChartInstance.resize();
+        fedClientsChartInstance.resize();
+      }
+    }
+
+    // Initialize App on DOM Loaded
+    document.addEventListener('DOMContentLoaded', async () => {
+      initCharts();
+      await loadSamples();
+      await loadBenchmarks();
+      setupUploadHandlers();
+    });
+
+    // ── Chart Initializations ────────────────────────────────────────────────
+    function initCharts() {
+      // 1. MoE Gate Doughnut Chart
+      const ctxGate = document.getElementById('gateChart').getContext('2d');
+      gateChartInstance = new Chart(ctxGate, {
+        type: 'doughnut',
+        data: {
+          labels: ['XGBoost', 'CatBoost', 'LightGBM'],
+          datasets: [{
+            data: [33.3, 33.3, 33.3],
+            backgroundColor: ['#0ea5e9', '#f59e0b', '#10b981'],
+            borderWidth: 0,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          cutout: '72%',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } }
+        }
+      });
+
+      // 2. All-Model Probability Distribution Chart
+      const ctxProbs = document.getElementById('probsChart').getContext('2d');
+      const classes = ['akiec', 'bcc', 'bkl', 'df', 'mel', 'nv', 'vasc'];
+      probsChartInstance = new Chart(ctxProbs, {
+        type: 'bar',
+        data: {
+          labels: classes.map(c => c.toUpperCase()),
+          datasets: [
+            { label: 'Federated Global (77.2%)', data: [0,0,0,0,0,0,0], backgroundColor: '#10b981' },
+            { label: 'MoE Ensemble (76.5%)', data: [0,0,0,0,0,0,0], backgroundColor: '#6366f1' },
+            { label: 'XGBoost', data: [0,0,0,0,0,0,0], backgroundColor: '#0ea5e9' },
+            { label: 'CatBoost', data: [0,0,0,0,0,0,0], backgroundColor: '#f59e0b' },
+            { label: 'LightGBM', data: [0,0,0,0,0,0,0], backgroundColor: '#14b8a6' },
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { color: '#94a3b8', callback: v => v + '%' },
+              grid: { color: 'rgba(51, 65, 85, 0.2)' }
+            },
+            x: {
+              ticks: { color: '#cbd5e1', font: { weight: 'bold' } },
+              grid: { display: false }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: { color: '#cbd5e1', boxWidth: 12, font: { size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    // ── Load Test Samples ────────────────────────────────────────────────────
+    async function loadSamples() {
+      try {
+        const res = await fetch('/api/samples');
+        const data = await res.json();
+        currentSamples = data.samples;
+        renderSamples();
+
+        // Automatically run inference on the first sample (Melanoma or sample 0)
+        if (currentSamples.length > 0) {
+          const melSample = currentSamples.find(s => s.dx === 'mel') || currentSamples[0];
+          selectSample(melSample.image_id);
+        }
+      } catch (err) {
+        console.error('Failed to load samples:', err);
+      }
+    }
+
+    function renderSamples() {
+      const container = document.getElementById('samples-container');
+      container.innerHTML = '';
+
+      currentSamples.forEach(sample => {
+        const riskColor = sample.risk === 'Malignant' ? 'bg-rose-500/20 text-rose-400 border-rose-500/40' :
+                         (sample.risk === 'Precancerous' ? 'bg-amber-500/20 text-amber-400 border-amber-500/40' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40');
+
+        const card = document.createElement('div');
+        card.className = 'group rounded-xl p-2.5 bg-slate-900 border border-slate-800 hover:border-sky-500/60 cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between';
+        card.onclick = () => selectSample(sample.image_id);
+
+        card.innerHTML = `
+          <div>
+            <div class="aspect-square w-full rounded-lg bg-slate-950 overflow-hidden mb-2 relative">
+              <img src="${sample.image_url}" alt="${sample.dx}" class="w-full h-full object-cover">
+              <span class="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase ${riskColor} border">
+                ${sample.dx}
+              </span>
+            </div>
+            <div class="text-[11px] font-semibold text-white truncate" title="${sample.name}">${sample.name}</div>
+          </div>
+          <button class="mt-2 w-full py-1 rounded bg-slate-800 group-hover:bg-sky-600 text-slate-300 group-hover:text-white text-[10px] font-medium transition-colors">
+            Diagnose
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // ── Select and Run Sample ────────────────────────────────────────────────
+    async function selectSample(imageId) {
+      const sample = currentSamples.find(s => s.image_id === imageId);
+      if (!sample) return;
+
+      // Update UI image preview
+      const preview = document.getElementById('preview-image');
+      const placeholder = document.getElementById('image-placeholder');
+      const scanBadge = document.getElementById('scan-source-badge');
+      const gtBox = document.getElementById('ground-truth-box');
+
+      preview.src = sample.image_url;
+      preview.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      scanBadge.innerText = sample.image_id;
+
+      // Ground truth banner
+      gtBox.classList.remove('hidden');
+      document.getElementById('gt-id').innerText = sample.image_id;
+      document.getElementById('gt-code').innerText = sample.dx.toUpperCase();
+      document.getElementById('gt-name').innerText = sample.name;
+      const gtRiskSpan = document.getElementById('gt-risk');
+      gtRiskSpan.innerText = sample.risk;
+      gtRiskSpan.className = `ml-auto px-2 py-0.5 rounded text-[10px] font-semibold uppercase ${
+        sample.risk === 'Malignant' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40' :
+        (sample.risk === 'Precancerous' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40')
+      }`;
+
+      // Run live inference via API
+      runInference({ image_id: imageId });
+    }
+
+    // ── File Upload Handlers ─────────────────────────────────────────────────
+    function setupUploadHandlers() {
+      const dropZone = document.getElementById('drop-zone');
+      const fileInput = document.getElementById('file-input');
+
+      dropZone.onclick = () => fileInput.click();
+
+      fileInput.onchange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+          handleUploadedFile(e.target.files[0]);
+        }
+      };
+
+      dropZone.ondragover = (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-sky-500');
+      };
+
+      dropZone.ondragleave = () => dropZone.classList.remove('border-sky-500');
+
+      dropZone.ondrop = (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-sky-500');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          handleUploadedFile(e.dataTransfer.files[0]);
+        }
+      };
+    }
+
+    function handleUploadedFile(file) {
+      const preview = document.getElementById('preview-image');
+      const placeholder = document.getElementById('image-placeholder');
+      const scanBadge = document.getElementById('scan-source-badge');
+      const gtBox = document.getElementById('ground-truth-box');
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+        preview.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+
+      scanBadge.innerText = 'Custom: ' + file.name.substring(0, 14);
+      gtBox.classList.add('hidden');
+
+      // Send to API
+      const formData = new FormData();
+      formData.append('file', file);
+      runInference(formData, true);
+    }
+
+    // ── Execute Live Inference ───────────────────────────────────────────────
+    async function runInference(payload, isFormData = false) {
+      const laser = document.getElementById('scan-laser');
+      laser.classList.remove('hidden');
+      laser.style.animation = 'laserMove 1.2s infinite alternate';
+
+      try {
+        let res;
+        if (isFormData) {
+          res = await fetch('/api/predict', { method: 'POST', body: payload });
+        } else {
+          const form = new FormData();
+          form.append('image_id', payload.image_id);
+          res = await fetch('/api/predict', { method: 'POST', body: form });
+        }
+
+        const data = await res.json();
+        if (data.status === 'success') {
+          updateDiagnosisUI(data);
+        }
+      } catch (err) {
+        console.error('Inference error:', err);
+      } finally {
+        laser.classList.add('hidden');
+      }
+    }
+
+    // ── Update Diagnosis UI Components ───────────────────────────────────────
+    function updateDiagnosisUI(data) {
+      const fed = data.federated_prediction;
+      const moe = data.moe_prediction;
+      const gt = data.ground_truth;
+
+      // 1. Render Federated Global Diagnosis Card
+      const fedBox = document.getElementById('fed-diag-box');
+      const fedMatch = gt ? (fed.code === gt.code) : null;
+      fedBox.innerHTML = `
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-slate-800 text-slate-200">${fed.code.toUpperCase()}</span>
+              <h4 class="text-base font-bold text-white">${fed.name}</h4>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">${fed.nature}</p>
+          </div>
+          <div class="text-right">
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase ${
+              fed.risk === 'Malignant' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40' :
+              (fed.risk === 'Precancerous' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40')
+            }">
+              ${fed.risk}
+            </span>
+            <div class="text-sm font-bold text-emerald-400 font-mono mt-1">${fed.confidence}%</div>
+          </div>
+        </div>
+        <div class="mt-2.5 text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
+          <i class="fa-solid fa-notes-medical text-sky-400 mr-1.5"></i> ${fed.urgency}
+        </div>
+        ${gt ? `
+          <div class="mt-2 text-[11px] flex items-center gap-1.5 font-medium ${fedMatch ? 'text-emerald-400' : 'text-amber-400'}">
+            <i class="fa-solid ${fedMatch ? 'fa-circle-check' : 'fa-triangle-exclamation'}"></i>
+            ${fedMatch ? 'Confirmed Ground-Truth Pathology Match' : 'Disagrees with Ground-Truth (' + gt.code.toUpperCase() + ')'}
+          </div>
+        ` : ''}
+      `;
+
+      // 2. Render MoE Diagnosis Card
+      const moeBox = document.getElementById('moe-diag-box');
+      const moeMatch = gt ? (moe.code === gt.code) : null;
+      moeBox.innerHTML = `
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-slate-800 text-slate-200">${moe.code.toUpperCase()}</span>
+              <h4 class="text-base font-bold text-white">${moe.name}</h4>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">${moe.nature}</p>
+          </div>
+          <div class="text-right">
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase ${
+              moe.risk === 'Malignant' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40' :
+              (moe.risk === 'Precancerous' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40')
+            }">
+              ${moe.risk}
+            </span>
+            <div class="text-sm font-bold text-indigo-400 font-mono mt-1">${moe.confidence}%</div>
+          </div>
+        </div>
+        <div class="mt-2.5 text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
+          <i class="fa-solid fa-code-fork text-indigo-400 mr-1.5"></i> Ensemble Decision: Dynamic routing synthesized across 3 GBDT experts.
+        </div>
+        ${gt ? `
+          <div class="mt-2 text-[11px] flex items-center gap-1.5 font-medium ${moeMatch ? 'text-emerald-400' : 'text-amber-400'}">
+            <i class="fa-solid ${moeMatch ? 'fa-circle-check' : 'fa-triangle-exclamation'}"></i>
+            ${moeMatch ? 'Confirmed Ground-Truth Pathology Match' : 'Disagrees with Ground-Truth (' + gt.code.toUpperCase() + ')'}
+          </div>
+        ` : ''}
+      `;
+
+      // 3. Update MoE Gate Router Weights
+      const w = data.gate_weights;
+      const wXgb = (w.xgboost * 100).toFixed(1);
+      const wCat = (w.catboost * 100).toFixed(1);
+      const wLgb = (w.lightgbm * 100).toFixed(1);
+
+      document.getElementById('weight-xgb').innerText = wXgb + '%';
+      document.getElementById('weight-cat').innerText = wCat + '%';
+      document.getElementById('weight-lgb').innerText = wLgb + '%';
+
+      document.getElementById('bar-xgb').style.width = wXgb + '%';
+      document.getElementById('bar-cat').style.width = wCat + '%';
+      document.getElementById('bar-lgb').style.width = wLgb + '%';
+
+      const ent = data.expert_entropies;
+      document.getElementById('entropy-xgb').innerText = ent.xgboost.toFixed(3);
+      document.getElementById('entropy-cat').innerText = ent.catboost.toFixed(3);
+      document.getElementById('entropy-lgb').innerText = ent.lightgbm.toFixed(3);
+
+      // Dominant Expert badge
+      let dominant = 'XGBoost';
+      if (w.catboost > w.xgboost && w.catboost > w.lightgbm) dominant = 'CatBoost';
+      if (w.lightgbm > w.xgboost && w.lightgbm > w.catboost) dominant = 'LightGBM';
+      document.getElementById('gate-dominant-badge').innerText = 'Prioritizing: ' + dominant;
+      document.getElementById('gate-active-expert').innerText = dominant;
+
+      // Update Doughnut Chart
+      if (gateChartInstance) {
+        gateChartInstance.data.datasets[0].data = [wXgb, wCat, wLgb];
+        gateChartInstance.update();
+      }
+
+      // 4. Update Probability Comparison Bar Chart
+      if (probsChartInstance) {
+        const classes = ['akiec', 'bcc', 'bkl', 'df', 'mel', 'nv', 'vasc'];
+        const pFedArr = classes.map(c => (fed.probabilities[c] * 100).toFixed(1));
+        const pMoeArr = classes.map(c => (moe.probabilities[c] * 100).toFixed(1));
+        const pXgbArr = classes.map(c => (data.expert_predictions.xgboost.probabilities[c] * 100).toFixed(1));
+        const pCatArr = classes.map(c => (data.expert_predictions.catboost.probabilities[c] * 100).toFixed(1));
+        const pLgbArr = classes.map(c => (data.expert_predictions.lightgbm.probabilities[c] * 100).toFixed(1));
+
+        probsChartInstance.data.datasets[0].data = pFedArr;
+        probsChartInstance.data.datasets[1].data = pMoeArr;
+        probsChartInstance.data.datasets[2].data = pXgbArr;
+        probsChartInstance.data.datasets[3].data = pCatArr;
+        probsChartInstance.data.datasets[4].data = pLgbArr;
+        probsChartInstance.update();
+      }
+    }
+
+    // ── Load Benchmarks Data & Render Tabs 2 & 3 ──────────────────────────────
+    async function loadBenchmarks() {
+      try {
+        const res = await fetch('/api/benchmarks');
+        currentBenchmarks = await res.json();
+
+        renderLeaderboard();
+        renderMoERoutingTable();
+        renderFederatedCharts();
+        renderFederatedMatrixAndPerClass();
+      } catch (err) {
+        console.error('Failed to load benchmarks:', err);
+      }
+    }
+
+    function renderLeaderboard() {
+      const tbody = document.getElementById('leaderboard-tbody');
+      tbody.innerHTML = '';
+
+      currentBenchmarks.leaderboard.forEach(row => {
+        const isWinner = row.model.includes('Federated');
+        const tr = document.createElement('tr');
+        tr.className = isWinner ? 'bg-emerald-500/10 font-bold' : 'hover:bg-slate-800/40 transition-colors';
+
+        tr.innerHTML = `
+          <td class="py-3 px-3 font-sans font-semibold text-white flex items-center gap-2">
+            ${isWinner ? '<i class="fa-solid fa-crown text-amber-400"></i>' : ''}
+            ${row.model}
+          </td>
+          <td class="py-3 px-3 text-slate-300 font-sans text-xs">${row.paradigm}</td>
+          <td class="py-3 px-3 text-center ${isWinner ? 'text-emerald-400 font-bold' : 'text-slate-200'}">${(row.accuracy * 100).toFixed(2)}%</td>
+          <td class="py-3 px-3 text-center ${isWinner ? 'text-emerald-400 font-bold' : 'text-slate-200'}">${row.macro_f1.toFixed(4)}</td>
+          <td class="py-3 px-3 text-center ${isWinner ? 'text-emerald-400 font-bold' : 'text-slate-200'}">${row.weighted_f1.toFixed(4)}</td>
+          <td class="py-3 px-3 text-center ${isWinner ? 'text-emerald-400 font-bold' : 'text-slate-200'}">${(row.mel_recall * 100).toFixed(2)}%</td>
+          <td class="py-3 px-3 font-sans text-xs text-slate-400">${row.status}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderMoERoutingTable() {
+      const tbody = document.getElementById('routing-tbody');
+      tbody.innerHTML = '';
+
+      const routing = currentBenchmarks.moe_routing_breakdown.by_class;
+      for (const [cls, info] of Object.entries(routing)) {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-800/40 transition-colors';
+
+        const meta = CLASS_METADATA[cls] || { name: cls, risk: 'Benign' };
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 font-mono font-bold text-white uppercase">${cls}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-200">${meta.name}</td>
+          <td class="py-2.5 px-3 text-center font-mono font-bold text-sky-400">${(info.xgboost * 100).toFixed(1)}%</td>
+          <td class="py-2.5 px-3 text-center font-mono font-bold text-amber-400">${(info.catboost * 100).toFixed(1)}%</td>
+          <td class="py-2.5 px-3 text-center font-mono font-bold text-emerald-400">${(info.lightgbm * 100).toFixed(1)}%</td>
+          <td class="py-2.5 px-3 text-slate-300 text-xs">${info.rationale}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function renderFederatedCharts() {
+      const telemetry = currentBenchmarks.federated_telemetry;
+      const rounds = telemetry.map(t => 'R' + t.round);
+      const testAccs = telemetry.map(t => (t.test_accuracy * 100).toFixed(2));
+      const valMacroF1 = telemetry.map(t => (t.val_macro_f1 * 100).toFixed(2));
+
+      // 1. Convergence Chart
+      const ctxConv = document.getElementById('fedConvergenceChart').getContext('2d');
+      fedConvergenceChartInstance = new Chart(ctxConv, {
+        type: 'line',
+        data: {
+          labels: rounds,
+          datasets: [
+            {
+              label: 'Global Test Accuracy (%)',
+              data: testAccs,
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              tension: 0.3,
+              borderWidth: 2.5,
+              fill: true
+            },
+            {
+              label: 'Global Val Macro F1 (%)',
+              data: valMacroF1,
+              borderColor: '#6366f1',
+              borderDash: [5, 5],
+              tension: 0.3,
+              borderWidth: 2,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(51, 65, 85, 0.2)' } },
+            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+          },
+          plugins: { legend: { labels: { color: '#cbd5e1' } } }
+        }
+      });
+
+      // 2. Client Validation Curves Chart
+      const accA = telemetry.map(t => (t.local_val_accuracies['Hospital A'] * 100).toFixed(1));
+      const accB = telemetry.map(t => (t.local_val_accuracies['Hospital B'] * 100).toFixed(1));
+      const accC = telemetry.map(t => (t.local_val_accuracies['Hospital C'] * 100).toFixed(1));
+
+      const ctxClients = document.getElementById('fedClientsChart').getContext('2d');
+      fedClientsChartInstance = new Chart(ctxClients, {
+        type: 'line',
+        data: {
+          labels: rounds,
+          datasets: [
+            { label: 'Hospital A Val Acc (%)', data: accA, borderColor: '#0ea5e9', borderWidth: 2, tension: 0.3 },
+            { label: 'Hospital B Val Acc (%)', data: accB, borderColor: '#6366f1', borderWidth: 2, tension: 0.3 },
+            { label: 'Hospital C Val Acc (%)', data: accC, borderColor: '#a855f7', borderWidth: 2, tension: 0.3 },
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(51, 65, 85, 0.2)' } },
+            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+          },
+          plugins: { legend: { labels: { color: '#cbd5e1' } } }
+        }
+      });
+    }
+
+    function renderFederatedMatrixAndPerClass() {
+      const finalTest = currentBenchmarks.federated_final_test;
+      const classes = ['akiec', 'bcc', 'bkl', 'df', 'mel', 'nv', 'vasc'];
+
+      // Confusion Matrix
+      const cm = finalTest.confusion_matrix;
+      const cmBox = document.getElementById('fed-confusion-matrix');
+      let html = '<table class="w-full text-center border-collapse"><thead><tr><th class="p-1 text-left text-slate-400">True \\ Pred</th>';
+      classes.forEach(c => html += `<th class="p-1 font-mono uppercase text-sky-400 font-bold">${c}</th>`);
+      html += '</tr></thead><tbody>';
+
+      classes.forEach((trueClass, i) => {
+        html += `<tr><td class="p-1 text-left font-mono uppercase text-white font-bold">${trueClass}</td>`;
+        classes.forEach((predClass, j) => {
+          const val = cm[i][j];
+          const isDiag = (i === j);
+          const bg = isDiag ? 'bg-emerald-500/20 text-emerald-300 font-bold' : (val > 0 ? 'text-slate-300' : 'text-slate-600');
+          html += `<td class="p-1.5 font-mono ${bg}">${val}</td>`;
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      cmBox.innerHTML = html;
+
+      // Per-Class Table
+      const perClass = finalTest.per_class;
+      const pctBox = document.getElementById('fed-per-class-table');
+      let tHtml = '<table class="w-full text-left font-mono"><thead><tr class="border-b border-slate-800 text-slate-400 text-[11px]"><th class="py-2">Class</th><th class="text-center">Recall</th><th class="text-center">Precision</th><th class="text-center">F1</th><th class="text-right">Support</th></tr></thead><tbody class="divide-y divide-slate-800/60">';
+
+      classes.forEach(c => {
+        const row = perClass[c] || { recall: 0, precision: 0, f1: 0, support: 0 };
+        tHtml += `
+          <tr>
+            <td class="py-1.5 uppercase font-bold text-white">${c}</td>
+            <td class="text-center ${(row.recall > 0.5) ? 'text-emerald-400' : 'text-amber-400'}">${(row.recall * 100).toFixed(1)}%</td>
+            <td class="text-center text-slate-300">${(row.precision * 100).toFixed(1)}%</td>
+            <td class="text-center text-slate-200 font-bold">${row.f1.toFixed(3)}</td>
+            <td class="text-right text-slate-400">${row.support}</td>
+          </tr>
+        `;
+      });
+      tHtml += '</tbody></table>';
+      pctBox.innerHTML = tHtml;
+    }
+  </script>
+</body>
+</html>

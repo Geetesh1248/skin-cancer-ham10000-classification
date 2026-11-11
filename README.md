@@ -292,6 +292,10 @@ True: akiec            27      3     11      0      4      6      0
 
 ```
 .
+├── app/
+│   ├── main.py                     # FastAPI clinical inference backend & telemetry APIs
+│   └── static/
+│       └── index.html              # Medical-grade interactive dashboard (Tailwind + Chart.js)
 ├── models/
 │   ├── catboost_metrics.json       # CatBoost test evaluation metrics
 │   ├── catboost_resnet50.cbm       # Trained CatBoost binary model
@@ -328,6 +332,8 @@ True: akiec            27      3     11      0      4      6      0
 │   ├── train_moe_final.py          # 88-D Context-Aware MoE Gating trainer & evaluator
 │   ├── train_moe_v2.py             # Wrapper executing train_moe_final.py
 │   └── train_xgboost.py            # XGBoost trainer with smoothed weights & scaler
+├── tests/
+│   └── test_api.py                 # Automated verification suite for live endpoints
 ├── requirements.txt                # Production environment dependencies
 └── README.md                       # Comprehensive documentation & benchmarks
 ```
@@ -396,6 +402,18 @@ Simulate collaborative decentralized learning across 3 patient-isolated clinical
 python src/federated_learning.py
 ```
 This executes 15 FedAvg communication rounds with local square-root smoothed optimization, exports round-by-round convergence telemetry to `models/federated_metrics.json`, and saves the optimal global model weights to `models/federated_global.pt`.
+
+### 7. Launch Interactive Clinical Web Application
+Run the local FastAPI server to open the interactive professor demonstration dashboard:
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+Navigate to [http://localhost:8000](http://localhost:8000) in any browser to access the live diagnostic scanner, 88-D MoE gating visualizer, and 3-Hospital FedAvg telemetry dashboard.
+
+Run the automated test verification suite:
+```bash
+python tests/test_api.py
+```
 
 ---
 
