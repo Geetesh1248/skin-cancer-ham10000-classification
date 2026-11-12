@@ -58,3 +58,5 @@ Thumbs.db
 .env
 *.env
 secrets.yaml
+
+.vercel

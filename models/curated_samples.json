@@ -1,0 +1,72 @@
+[
+  {
+    "image_id": "ISIC_0029659",
+    "dx": "akiec",
+    "lesion_id": "HAM_0000673",
+    "name": "Actinic Keratoses / Bowen's Disease",
+    "nature": "Pre-cancerous",
+    "risk": "Precancerous",
+    "badge_color": "amber",
+    "image_url": "/samples/ISIC_0029659.jpg"
+  },
+  {
+    "image_id": "ISIC_0029230",
+    "dx": "bcc",
+    "lesion_id": "HAM_0007141",
+    "name": "Basal Cell Carcinoma",
+    "nature": "Malignant Cancer",
+    "risk": "Malignant",
+    "badge_color": "amber",
+    "image_url": "/samples/ISIC_0029230.jpg"
+  },
+  {
+    "image_id": "ISIC_0025915",
+    "dx": "bkl",
+    "lesion_id": "HAM_0001601",
+    "name": "Benign Keratosis-like Lesions",
+    "nature": "Benign Keratosis",
+    "risk": "Benign",
+    "badge_color": "emerald",
+    "image_url": "/samples/ISIC_0025915.jpg"
+  },
+  {
+    "image_id": "ISIC_0029760",
+    "dx": "df",
+    "lesion_id": "HAM_0004330",
+    "name": "Dermatofibroma",
+    "nature": "Benign Fibroma",
+    "risk": "Benign",
+    "badge_color": "emerald",
+    "image_url": "/samples/ISIC_0029760.jpg"
+  },
+  {
+    "image_id": "ISIC_0026120",
+    "dx": "mel",
+    "lesion_id": "HAM_0007310",
+    "name": "Melanoma",
+    "nature": "Malignant Cancer",
+    "risk": "Malignant",
+    "badge_color": "rose",
+    "image_url": "/samples/ISIC_0026120.jpg"
+  },
+  {
+    "image_id": "ISIC_0032285",
+    "dx": "nv",
+    "lesion_id": "HAM_0006830",
+    "name": "Melanocytic Nevi",
+    "nature": "Benign Mole",
+    "risk": "Benign",
+    "badge_color": "emerald",
+    "image_url": "/samples/ISIC_0032285.jpg"
+  },
+  {
+    "image_id": "ISIC_0029486",
+    "dx": "vasc",
+    "lesion_id": "HAM_0001920",
+    "name": "Vascular Lesions",
+    "nature": "Benign Vascular",
+    "risk": "Benign",
+    "badge_color": "emerald",
+    "image_url": "/samples/ISIC_0029486.jpg"
+  }
+]

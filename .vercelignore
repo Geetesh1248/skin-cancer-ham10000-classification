@@ -1,0 +1,40 @@
+# Archives and large datasets
+archive.zip
+*.zip
+dataset/
+dataset/**
+results/*.npz
+results/*.npy
+results/*.csv
+notebooks/
+notebooks/**
+catboost_info/
+catboost_info/**
+
+# Training scripts, tests, and desktop app
+src/
+src/**
+tests/
+tests/**
+app/
+app/**
+scripts/
+scripts/**
+
+# Heavy ML binary weights
+models/*.cbm
+models/*.txt
+models/*.pt
+models/*.joblib
+models/*.npy
+models/xgboost_resnet50.json
+
+# Development & Virtual Environments
+requirements-full.txt
+.git/
+.gitignore
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

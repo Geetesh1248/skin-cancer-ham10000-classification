@@ -1,0 +1,842 @@
+{
+  "ISIC_0029659": {
+    "status": "success",
+    "image_id": "ISIC_0029659",
+    "dx": "akiec",
+    "lesion_id": "HAM_0000673",
+    "federated_prediction": {
+      "code": "akiec",
+      "name": "Actinic Keratoses / Bowen's Disease",
+      "nature": "Pre-cancerous",
+      "risk": "Precancerous",
+      "urgency": "PRE-MALIGNANT WARNING: Keratinocyte atypia induced by ultraviolet radiation. Cryotherapy, 5-fluorouracil, or photodynamic therapy indicated to halt squamous progression.",
+      "badge_color": "amber",
+      "malignant": false,
+      "confidence": 76.66,
+      "probabilities": {
+        "akiec": 0.7665943503379822,
+        "bcc": 0.14364786446094513,
+        "bkl": 0.015893999487161636,
+        "df": 2.57082956522936e-05,
+        "mel": 0.07082381099462509,
+        "nv": 0.0027738534845411777,
+        "vasc": 0.00024048652267083526
+      }
+    },
+    "moe_prediction": {
+      "code": "akiec",
+      "name": "Actinic Keratoses / Bowen's Disease",
+      "nature": "Pre-cancerous",
+      "risk": "Precancerous",
+      "urgency": "PRE-MALIGNANT WARNING: Keratinocyte atypia induced by ultraviolet radiation. Cryotherapy, 5-fluorouracil, or photodynamic therapy indicated to halt squamous progression.",
+      "badge_color": "amber",
+      "malignant": false,
+      "confidence": 62.96,
+      "probabilities": {
+        "akiec": 0.6296287374873801,
+        "bcc": 0.1505763905849652,
+        "bkl": 0.061986332427551714,
+        "df": 0.0013351236081337987,
+        "mel": 0.13290985834445518,
+        "nv": 0.022303907959289326,
+        "vasc": 0.0012596731623273853
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.4804,
+      "catboost": 0.1077,
+      "lightgbm": 0.4119
+    },
+    "expert_entropies": {
+      "xgboost": 1.0931,
+      "catboost": 1.3061,
+      "lightgbm": 1.0647
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "akiec",
+        "name": "Actinic Keratoses / Bowen's Disease",
+        "nature": "Pre-cancerous",
+        "risk": "Precancerous",
+        "urgency": "PRE-MALIGNANT WARNING: Keratinocyte atypia induced by ultraviolet radiation. Cryotherapy, 5-fluorouracil, or photodynamic therapy indicated to halt squamous progression.",
+        "badge_color": "amber",
+        "malignant": false,
+        "confidence": 64.71,
+        "probabilities": {
+          "akiec": 0.6471351981163025,
+          "bcc": 0.10364637523889542,
+          "bkl": 0.06096430495381355,
+          "df": 0.0010879288893193007,
+          "mel": 0.1586528867483139,
+          "nv": 0.0272807814180851,
+          "vasc": 0.00123249227181077
+        }
+      },
+      "catboost": {
+        "code": "akiec",
+        "name": "Actinic Keratoses / Bowen's Disease",
+        "nature": "Pre-cancerous",
+        "risk": "Precancerous",
+        "urgency": "PRE-MALIGNANT WARNING: Keratinocyte atypia induced by ultraviolet radiation. Cryotherapy, 5-fluorouracil, or photodynamic therapy indicated to halt squamous progression.",
+        "badge_color": "amber",
+        "malignant": false,
+        "confidence": 53.92,
+        "probabilities": {
+          "akiec": 0.5392084911593744,
+          "bcc": 0.17679174003640327,
+          "bkl": 0.11486858506570344,
+          "df": 0.004152506823807059,
+          "mel": 0.12811181145165068,
+          "nv": 0.03386078032633598,
+          "vasc": 0.003006085136724941
+        }
+      },
+      "lightgbm": {
+        "code": "akiec",
+        "name": "Actinic Keratoses / Bowen's Disease",
+        "nature": "Pre-cancerous",
+        "risk": "Precancerous",
+        "urgency": "PRE-MALIGNANT WARNING: Keratinocyte atypia induced by ultraviolet radiation. Cryotherapy, 5-fluorouracil, or photodynamic therapy indicated to halt squamous progression.",
+        "badge_color": "amber",
+        "malignant": false,
+        "confidence": 63.29,
+        "probabilities": {
+          "akiec": 0.6328653206076938,
+          "bcc": 0.19845231604995553,
+          "bkl": 0.04934412734612248,
+          "df": 0.0008863869246865497,
+          "mel": 0.10414122648926405,
+          "nv": 0.013476115999493651,
+          "vasc": 0.0008345065827839288
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0029659",
+      "code": "akiec",
+      "name": "Actinic Keratoses / Bowen's Disease",
+      "risk": "Precancerous",
+      "lesion_id": "HAM_0000673"
+    }
+  },
+  "ISIC_0029230": {
+    "status": "success",
+    "image_id": "ISIC_0029230",
+    "dx": "bcc",
+    "lesion_id": "HAM_0007141",
+    "federated_prediction": {
+      "code": "nv",
+      "name": "Melanocytic Nevi",
+      "nature": "Benign Mole",
+      "risk": "Benign",
+      "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 68.57,
+      "probabilities": {
+        "akiec": 0.013809377327561378,
+        "bcc": 0.14725178480148315,
+        "bkl": 0.023943550884723663,
+        "df": 0.03668408468365669,
+        "mel": 0.09227551519870758,
+        "nv": 0.6857198476791382,
+        "vasc": 0.00031577874324284494
+      }
+    },
+    "moe_prediction": {
+      "code": "nv",
+      "name": "Melanocytic Nevi",
+      "nature": "Benign Mole",
+      "risk": "Benign",
+      "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 63.7,
+      "probabilities": {
+        "akiec": 0.007331495668333578,
+        "bcc": 0.15452238967375173,
+        "bkl": 0.0793136708615956,
+        "df": 0.00912633635324597,
+        "mel": 0.11018182328524993,
+        "nv": 0.6370304488712546,
+        "vasc": 0.0024938543786813335
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.4219,
+      "catboost": 0.1809,
+      "lightgbm": 0.3972
+    },
+    "expert_entropies": {
+      "xgboost": 0.845,
+      "catboost": 1.2142,
+      "lightgbm": 1.2261
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 77.26,
+        "probabilities": {
+          "akiec": 0.0071346634067595005,
+          "bcc": 0.06291274726390839,
+          "bkl": 0.07390562444925308,
+          "df": 0.006899623200297356,
+          "mel": 0.07349731028079987,
+          "nv": 0.7726039886474609,
+          "vasc": 0.003046022029593587
+        }
+      },
+      "catboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 60.52,
+        "probabilities": {
+          "akiec": 0.013705182232761438,
+          "bcc": 0.10984225488297114,
+          "bkl": 0.08388195584713512,
+          "df": 0.025376325037688923,
+          "mel": 0.15949424245616223,
+          "nv": 0.6052083833618958,
+          "vasc": 0.002491656181385423
+        }
+      },
+      "lightgbm": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 50.75,
+        "probabilities": {
+          "akiec": 0.004637986659354461,
+          "bcc": 0.27218700935107404,
+          "bkl": 0.08297823105556867,
+          "df": 0.004091463928268899,
+          "mel": 0.1266947617573711,
+          "nv": 0.507502260777984,
+          "vasc": 0.0019082864703788096
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0029230",
+      "code": "bcc",
+      "name": "Basal Cell Carcinoma",
+      "risk": "Malignant",
+      "lesion_id": "HAM_0007141"
+    }
+  },
+  "ISIC_0025915": {
+    "status": "success",
+    "image_id": "ISIC_0025915",
+    "dx": "bkl",
+    "lesion_id": "HAM_0001601",
+    "federated_prediction": {
+      "code": "mel",
+      "name": "Melanoma",
+      "nature": "Malignant Cancer",
+      "risk": "Malignant",
+      "urgency": "CRITICAL ONCOLOGICAL RISK: High metastatic potential. Immediate urgent dermoscopy, wide local excision, and histopathology required.",
+      "badge_color": "rose",
+      "malignant": true,
+      "confidence": 43.6,
+      "probabilities": {
+        "akiec": 0.013029729947447777,
+        "bcc": 0.07917052507400513,
+        "bkl": 0.11792781203985214,
+        "df": 0.00034516805317252874,
+        "mel": 0.4360244572162628,
+        "nv": 0.3524010479450226,
+        "vasc": 0.0011013316689059138
+      }
+    },
+    "moe_prediction": {
+      "code": "nv",
+      "name": "Melanocytic Nevi",
+      "nature": "Benign Mole",
+      "risk": "Benign",
+      "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 31.75,
+      "probabilities": {
+        "akiec": 0.013362650009764152,
+        "bcc": 0.2758047647468936,
+        "bkl": 0.21416885351539575,
+        "df": 0.006874488729255225,
+        "mel": 0.16397536613078906,
+        "nv": 0.31754895778534176,
+        "vasc": 0.00826495662650171
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.2418,
+      "catboost": 0.3916,
+      "lightgbm": 0.3667
+    },
+    "expert_entropies": {
+      "xgboost": 1.3147,
+      "catboost": 1.5237,
+      "lightgbm": 1.3035
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 47.44,
+        "probabilities": {
+          "akiec": 0.017512572929263115,
+          "bcc": 0.10274127125740051,
+          "bkl": 0.2650531828403473,
+          "df": 0.0026331408880650997,
+          "mel": 0.1343155801296234,
+          "nv": 0.47439926862716675,
+          "vasc": 0.0033449360635131598
+        }
+      },
+      "catboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 34.34,
+        "probabilities": {
+          "akiec": 0.015817335434181453,
+          "bcc": 0.182948964366439,
+          "bkl": 0.25622741821124606,
+          "df": 0.014000467652843258,
+          "mel": 0.17031704970309142,
+          "nv": 0.3434036799295364,
+          "vasc": 0.01728508470266235
+        }
+      },
+      "lightgbm": {
+        "code": "bcc",
+        "name": "Basal Cell Carcinoma",
+        "nature": "Malignant Cancer",
+        "risk": "Malignant",
+        "urgency": "HIGH RISK: Most prevalent non-melanocytic skin cancer. Locally invasive; prompt Mohs micrographic surgery or surgical excision advised.",
+        "badge_color": "amber",
+        "malignant": true,
+        "confidence": 48.91,
+        "probabilities": {
+          "akiec": 0.008004957410765018,
+          "bcc": 0.48907752356512246,
+          "bkl": 0.13570201933839854,
+          "df": 0.0020605547873961847,
+          "mel": 0.1767580471346357,
+          "nv": 0.18652131147981,
+          "vasc": 0.0018755862838719507
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0025915",
+      "code": "bkl",
+      "name": "Benign Keratosis-like Lesions",
+      "risk": "Benign",
+      "lesion_id": "HAM_0001601"
+    }
+  },
+  "ISIC_0029760": {
+    "status": "success",
+    "image_id": "ISIC_0029760",
+    "dx": "df",
+    "lesion_id": "HAM_0004330",
+    "federated_prediction": {
+      "code": "bkl",
+      "name": "Benign Keratosis-like Lesions",
+      "nature": "Benign Keratosis",
+      "risk": "Benign",
+      "urgency": "Non-cancerous epithelial growth (seborrheic keratosis, solar lentigo, or lichen-planus like keratosis). Reassurance or cryo-ablation if symptomatic.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 47.11,
+      "probabilities": {
+        "akiec": 0.055510859936475754,
+        "bcc": 0.011448130011558533,
+        "bkl": 0.4711132049560547,
+        "df": 0.02441667765378952,
+        "mel": 0.06615038216114044,
+        "nv": 0.37104037404060364,
+        "vasc": 0.000320357212331146
+      }
+    },
+    "moe_prediction": {
+      "code": "bkl",
+      "name": "Benign Keratosis-like Lesions",
+      "nature": "Benign Keratosis",
+      "risk": "Benign",
+      "urgency": "Non-cancerous epithelial growth (seborrheic keratosis, solar lentigo, or lichen-planus like keratosis). Reassurance or cryo-ablation if symptomatic.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 41.25,
+      "probabilities": {
+        "akiec": 0.022811560552014203,
+        "bcc": 0.011910075589541071,
+        "bkl": 0.412509071123232,
+        "df": 0.02343612932974145,
+        "mel": 0.3223767695091818,
+        "nv": 0.1924319306904983,
+        "vasc": 0.0145244036011464
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.7616,
+      "catboost": 0.2177,
+      "lightgbm": 0.0207
+    },
+    "expert_entropies": {
+      "xgboost": 1.2952,
+      "catboost": 1.4428,
+      "lightgbm": 1.3969
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "bkl",
+        "name": "Benign Keratosis-like Lesions",
+        "nature": "Benign Keratosis",
+        "risk": "Benign",
+        "urgency": "Non-cancerous epithelial growth (seborrheic keratosis, solar lentigo, or lichen-planus like keratosis). Reassurance or cryo-ablation if symptomatic.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 41.24,
+        "probabilities": {
+          "akiec": 0.018050506711006165,
+          "bcc": 0.007246044464409351,
+          "bkl": 0.4123859405517578,
+          "df": 0.022626226767897606,
+          "mel": 0.33612293004989624,
+          "nv": 0.19159674644470215,
+          "vasc": 0.011971593834459782
+        }
+      },
+      "catboost": {
+        "code": "bkl",
+        "name": "Benign Keratosis-like Lesions",
+        "nature": "Benign Keratosis",
+        "risk": "Benign",
+        "urgency": "Non-cancerous epithelial growth (seborrheic keratosis, solar lentigo, or lichen-planus like keratosis). Reassurance or cryo-ablation if symptomatic.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 40.97,
+        "probabilities": {
+          "akiec": 0.03775845482352823,
+          "bcc": 0.02805479307428602,
+          "bkl": 0.4096624333596681,
+          "df": 0.022670831601301872,
+          "mel": 0.27826030468242946,
+          "nv": 0.19945024452773502,
+          "vasc": 0.024142937931051364
+        }
+      },
+      "lightgbm": {
+        "code": "bkl",
+        "name": "Benign Keratosis-like Lesions",
+        "nature": "Benign Keratosis",
+        "risk": "Benign",
+        "urgency": "Non-cancerous epithelial growth (seborrheic keratosis, solar lentigo, or lichen-planus like keratosis). Reassurance or cryo-ablation if symptomatic.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 44.69,
+        "probabilities": {
+          "akiec": 0.04077751383904284,
+          "bcc": 0.01372432796223355,
+          "bkl": 0.4469454950555615,
+          "df": 0.0612477460544917,
+          "mel": 0.28060967242858637,
+          "nv": 0.14939291253556083,
+          "vasc": 0.007302332124523138
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0029760",
+      "code": "df",
+      "name": "Dermatofibroma",
+      "risk": "Benign",
+      "lesion_id": "HAM_0004330"
+    }
+  },
+  "ISIC_0026120": {
+    "status": "success",
+    "image_id": "ISIC_0026120",
+    "dx": "mel",
+    "lesion_id": "HAM_0007310",
+    "federated_prediction": {
+      "code": "mel",
+      "name": "Melanoma",
+      "nature": "Malignant Cancer",
+      "risk": "Malignant",
+      "urgency": "CRITICAL ONCOLOGICAL RISK: High metastatic potential. Immediate urgent dermoscopy, wide local excision, and histopathology required.",
+      "badge_color": "rose",
+      "malignant": true,
+      "confidence": 93.17,
+      "probabilities": {
+        "akiec": 4.4732783862855285e-05,
+        "bcc": 0.0006039738655090332,
+        "bkl": 0.041021037846803665,
+        "df": 0.0007173345074988902,
+        "mel": 0.9317327737808228,
+        "nv": 0.025753255933523178,
+        "vasc": 0.00012684936518780887
+      }
+    },
+    "moe_prediction": {
+      "code": "mel",
+      "name": "Melanoma",
+      "nature": "Malignant Cancer",
+      "risk": "Malignant",
+      "urgency": "CRITICAL ONCOLOGICAL RISK: High metastatic potential. Immediate urgent dermoscopy, wide local excision, and histopathology required.",
+      "badge_color": "rose",
+      "malignant": true,
+      "confidence": 66.23,
+      "probabilities": {
+        "akiec": 0.0031790305882490157,
+        "bcc": 0.004384087342234865,
+        "bkl": 0.11462299330357027,
+        "df": 0.0031680601672065076,
+        "mel": 0.6622797298090308,
+        "nv": 0.20942895796057945,
+        "vasc": 0.002937192750362583
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.9384,
+      "catboost": 0.0187,
+      "lightgbm": 0.0429
+    },
+    "expert_entropies": {
+      "xgboost": 0.9233,
+      "catboost": 1.1067,
+      "lightgbm": 0.8851
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "mel",
+        "name": "Melanoma",
+        "nature": "Malignant Cancer",
+        "risk": "Malignant",
+        "urgency": "CRITICAL ONCOLOGICAL RISK: High metastatic potential. Immediate urgent dermoscopy, wide local excision, and histopathology required.",
+        "badge_color": "rose",
+        "malignant": true,
+        "confidence": 66.29,
+        "probabilities": {
+          "akiec": 0.0031113543082028627,
+          "bcc": 0.004257773049175739,
+          "bkl": 0.113407202064991,
+          "df": 0.0030160965397953987,
+          "mel": 0.6628541350364685,
+          "nv": 0.21039900183677673,
+          "vasc": 0.0029544446151703596
+        }
+      },
+      "catboost": {
+        "code": "mel",
+        "name": "Melanoma",
+        "nature": "Malignant Cancer",
+        "risk": "Malignant",
+        "urgency": "CRITICAL ONCOLOGICAL RISK: High metastatic potential. Immediate urgent dermoscopy, wide local excision, and histopathology required.",
+        "badge_color": "rose",
+        "malignant": true,
+        "confidence": 56.55,
+        "probabilities": {
+          "akiec": 0.00614340956727592,
+          "bcc": 0.01519258749829959,
+          "bkl": 0.1339672991232215,
+          "df": 0.012103716564993651,
+          "mel": 0.5655041381225361,
+          "nv": 0.2646081135314957,
+          "vasc": 0.0024807355921776498
+        }
+      },
+      "lightgbm": {
+        "code": "mel",
+        "name": "Melanoma",
+        "nature": "Malignant Cancer",
+        "risk": "Malignant",
+        "urgency": "CRITICAL ONCOLOGICAL RISK: High metastatic potential. Immediate urgent dermoscopy, wide local excision, and histopathology required.",
+        "badge_color": "rose",
+        "malignant": true,
+        "confidence": 69.19,
+        "probabilities": {
+          "akiec": 0.00336819770347654,
+          "bcc": 0.002437638582229962,
+          "bkl": 0.13280199668798764,
+          "df": 0.002599340989931134,
+          "mel": 0.6918887828179748,
+          "nv": 0.16414549669911777,
+          "vasc": 0.002758546519282021
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0026120",
+      "code": "mel",
+      "name": "Melanoma",
+      "risk": "Malignant",
+      "lesion_id": "HAM_0007310"
+    }
+  },
+  "ISIC_0032285": {
+    "status": "success",
+    "image_id": "ISIC_0032285",
+    "dx": "nv",
+    "lesion_id": "HAM_0006830",
+    "federated_prediction": {
+      "code": "nv",
+      "name": "Melanocytic Nevi",
+      "nature": "Benign Mole",
+      "risk": "Benign",
+      "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 99.15,
+      "probabilities": {
+        "akiec": 7.506752353947377e-06,
+        "bcc": 1.7949021469121362e-07,
+        "bkl": 8.97425488801673e-05,
+        "df": 3.74645622969183e-07,
+        "mel": 0.008357848040759563,
+        "nv": 0.991544246673584,
+        "vasc": 1.3501539797289297e-07
+      }
+    },
+    "moe_prediction": {
+      "code": "nv",
+      "name": "Melanocytic Nevi",
+      "nature": "Benign Mole",
+      "risk": "Benign",
+      "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+      "badge_color": "emerald",
+      "malignant": false,
+      "confidence": 98.55,
+      "probabilities": {
+        "akiec": 0.00031307467913194945,
+        "bcc": 0.0002793812696949646,
+        "bkl": 0.001833445200597151,
+        "df": 0.00024004913653510583,
+        "mel": 0.011617668077706405,
+        "nv": 0.985533987975018,
+        "vasc": 0.00018238609432047253
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.8722,
+      "catboost": 0.0076,
+      "lightgbm": 0.1201
+    },
+    "expert_entropies": {
+      "xgboost": 0.0765,
+      "catboost": 0.1809,
+      "lightgbm": 0.1419
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 98.76,
+        "probabilities": {
+          "akiec": 0.0003238634380977601,
+          "bcc": 0.0002891005715355277,
+          "bkl": 0.0015546719077974558,
+          "df": 0.00024473038502037525,
+          "mel": 0.009836943820118904,
+          "nv": 0.9875600934028625,
+          "vasc": 0.00019055168377235532
+        }
+      },
+      "catboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 96.45,
+        "probabilities": {
+          "akiec": 0.00043528006879306203,
+          "bcc": 0.00019517891216237299,
+          "bkl": 0.008189410687927858,
+          "df": 0.000753476697411537,
+          "mel": 0.025703532827659744,
+          "nv": 0.9644688405861713,
+          "vasc": 0.0002542802198741006
+        }
+      },
+      "lightgbm": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 97.22,
+        "probabilities": {
+          "akiec": 0.0002269852910093425,
+          "bcc": 0.00021416998134288318,
+          "bkl": 0.0034534797401426353,
+          "df": 0.00017344329234316648,
+          "mel": 0.023650564282101095,
+          "nv": 0.9721628202795499,
+          "vasc": 0.00011853713351100686
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0032285",
+      "code": "nv",
+      "name": "Melanocytic Nevi",
+      "risk": "Benign",
+      "lesion_id": "HAM_0006830"
+    }
+  },
+  "ISIC_0029486": {
+    "status": "success",
+    "image_id": "ISIC_0029486",
+    "dx": "vasc",
+    "lesion_id": "HAM_0001920",
+    "federated_prediction": {
+      "code": "bcc",
+      "name": "Basal Cell Carcinoma",
+      "nature": "Malignant Cancer",
+      "risk": "Malignant",
+      "urgency": "HIGH RISK: Most prevalent non-melanocytic skin cancer. Locally invasive; prompt Mohs micrographic surgery or surgical excision advised.",
+      "badge_color": "amber",
+      "malignant": true,
+      "confidence": 92.75,
+      "probabilities": {
+        "akiec": 0.00021727936109527946,
+        "bcc": 0.9274574518203735,
+        "bkl": 0.00330905057489872,
+        "df": 7.564944826299325e-05,
+        "mel": 0.006599775981158018,
+        "nv": 0.06071394681930542,
+        "vasc": 0.0016269515035673976
+      }
+    },
+    "moe_prediction": {
+      "code": "bcc",
+      "name": "Basal Cell Carcinoma",
+      "nature": "Malignant Cancer",
+      "risk": "Malignant",
+      "urgency": "HIGH RISK: Most prevalent non-melanocytic skin cancer. Locally invasive; prompt Mohs micrographic surgery or surgical excision advised.",
+      "badge_color": "amber",
+      "malignant": true,
+      "confidence": 61.05,
+      "probabilities": {
+        "akiec": 0.01061515878275901,
+        "bcc": 0.6104592762012904,
+        "bkl": 0.11805526986035664,
+        "df": 0.003818409047565631,
+        "mel": 0.049374620269512455,
+        "nv": 0.2005399797473284,
+        "vasc": 0.007137362576053965
+      }
+    },
+    "gate_weights": {
+      "xgboost": 0.2453,
+      "catboost": 0.0033,
+      "lightgbm": 0.7514
+    },
+    "expert_entropies": {
+      "xgboost": 1.3431,
+      "catboost": 1.5486,
+      "lightgbm": 0.991
+    },
+    "expert_predictions": {
+      "xgboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 35.1,
+        "probabilities": {
+          "akiec": 0.009995542466640472,
+          "bcc": 0.3508867919445038,
+          "bkl": 0.21548792719841003,
+          "df": 0.005825909785926342,
+          "mel": 0.06065189465880394,
+          "nv": 0.35097596049308777,
+          "vasc": 0.0061760214157402515
+        }
+      },
+      "catboost": {
+        "code": "nv",
+        "name": "Melanocytic Nevi",
+        "nature": "Benign Mole",
+        "risk": "Benign",
+        "urgency": "Low risk; common benign proliferation of cutaneous melanocytes. Routine dermatological skin self-exams recommended.",
+        "badge_color": "emerald",
+        "malignant": false,
+        "confidence": 39.82,
+        "probabilities": {
+          "akiec": 0.03564941191633761,
+          "bcc": 0.26958608970216313,
+          "bkl": 0.12127032749380424,
+          "df": 0.014192538634172844,
+          "mel": 0.1116913455527871,
+          "nv": 0.39816964302063684,
+          "vasc": 0.04944064368009813
+        }
+      },
+      "lightgbm": {
+        "code": "bcc",
+        "name": "Basal Cell Carcinoma",
+        "nature": "Malignant Cancer",
+        "risk": "Malignant",
+        "urgency": "HIGH RISK: Most prevalent non-melanocytic skin cancer. Locally invasive; prompt Mohs micrographic surgery or surgical excision advised.",
+        "badge_color": "amber",
+        "malignant": true,
+        "confidence": 69.67,
+        "probabilities": {
+          "akiec": 0.010707545135300256,
+          "bcc": 0.6967043141393319,
+          "bkl": 0.08623010450723921,
+          "df": 0.0031174270297580375,
+          "mel": 0.045419068441549214,
+          "nv": 0.1505560404326035,
+          "vasc": 0.007265500314217979
+        }
+      }
+    },
+    "ground_truth": {
+      "image_id": "ISIC_0029486",
+      "code": "vasc",
+      "name": "Vascular Lesions",
+      "risk": "Benign",
+      "lesion_id": "HAM_0001920"
+    }
+  }
+}
