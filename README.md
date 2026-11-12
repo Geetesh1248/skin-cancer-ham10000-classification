@@ -1,8 +1,12 @@
 # Skin Lesion Classification on HAM10000 via ResNet-50 Embeddings, Context-Aware Mixture of Experts (MoE) & Federated Learning (FedAvg)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20Deployed-10b981.svg?style=for-the-badge&logo=vercel)](https://skin-cancer-ham10000.vercel.app)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+> **Live Interactive Cloud Web Application**: [https://skin-cancer-ham10000.vercel.app](https://skin-cancer-ham10000.vercel.app)  
+> Features live clinical dermatoscopic analysis, dynamic 88-D MoE gating inspection, 6-model benchmark comparison, and 15-round 3-hospital FedAvg telemetry.
 
 An end-to-end medical computer vision, machine learning, and privacy-preserving distributed learning pipeline for 7-class dermatoscopic skin lesion diagnosis on the **HAM10000 ("Human Against Machine with 10,000 training images")** benchmark dataset (10,015 dermatoscopic images).
 
